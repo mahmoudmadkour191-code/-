@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>SG Store — Your Ultimate App Store</title>
+<meta name="theme-color" content="#070707">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<style>
+:root{
+  --r:#FF1E1E;--rd:#CC0000;--rl:#FF4747;--rg:rgba(255,30,30,.22);--rs:rgba(255,30,30,.08);--rss:rgba(255,30,30,.04);
+  --bg0:#070707;--bg1:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--bg4:#252525;--bg5:#2E2E2E;
+  --t1:#FFF;--t2:#A0A0A0;--t3:#5A5A5A;
+  --green:#00FF9C;--gold:#FFD700;--blue:#4A9EFF;--orng:#FF8C00;--purp:#A064FF;
+  --bor:rgba(255,255,255,.05);--borr:rgba(255,30,30,.25);
+  --font:'Rajdhani',sans-serif;--fh:'Orbitron',sans-serif;
+  --nav:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:var(--bg0);font-family:var(--font);color:var(--t1);overflow:hidden;-webkit-font-smoothing:antialiased;}
+button,input,select,textarea{font-family:var(--font);}
+img{display:block;}
+
+/* ── SG ICON SVG ─────────────────────── */
+.sg-svg{display:inline-block;}
+.sg-svg svg{width:100%;height:100%;display:block;}
+
+/* ── SPLASH ──────────────────────────── */
+#spl{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at center,#1a0000 0%,var(--bg0) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .55s ease,visibility .55s ease;}
+#spl.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.spl-icon{width:108px;height:108px;border-radius:26px;background:linear-gradient(145deg,#180000,#2c0000);border:2px solid var(--r);display:flex;align-items:center;justify-content:center;animation:splPulse 1.8s ease-in-out infinite;padding:14px;}
+@keyframes splPulse{0%,100%{box-shadow:0 0 30px var(--rg),0 0 60px rgba(255,30,30,.06);}50%{box-shadow:0 0 60px rgba(255,30,30,.5),0 0 110px rgba(255,30,30,.18);}}
+.spl-name{font-family:var(--fh);font-size:28px;font-weight:900;letter-spacing:6px;background:linear-gradient(90deg,#fff 25%,var(--r));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.spl-tag{font-size:11px;color:var(--t3);letter-spacing:3.5px;text-transform:uppercase;}
+.spl-loader{width:140px;height:2px;background:var(--bg3);border-radius:99px;overflow:hidden;margin-top:8px;}
+.spl-bar{height:100%;background:linear-gradient(90deg,var(--r),#ff7070);border-radius:99px;width:0;animation:sLoad 2.4s ease forwards;}
+@keyframes sLoad{0%{width:0}80%{width:80%}100%{width:100%}}
+.spl-copy{position:absolute;bottom:24px;font-size:10px;color:var(--t3);letter-spacing:.6px;text-align:center;line-height:1.8;}
+
+/* ── AUTH ────────────────────────────── */
+#auth{position:fixed;inset:0;z-index:800;background:radial-gradient(ellipse at top,#150000 0%,var(--bg0) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:8px;transition:opacity .4s,visibility .4s;overflow-y:auto;}
+#auth.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.auth-icon{width:74px;height:74px;border-radius:18px;background:linear-gradient(145deg,#180000,#2c0000);border:2px solid var(--r);box-shadow:0 0 30px var(--rg);padding:10px;margin-bottom:8px;}
+.auth-logo{font-family:var(--fh);font-size:20px;font-weight:900;color:var(--r);letter-spacing:4px;}
+.auth-sub{font-size:11px;color:var(--t3);letter-spacing:2px;margin-bottom:24px;text-transform:uppercase;}
+.auth-box{width:100%;max-width:340px;display:flex;flex-direction:column;gap:10px;}
+.auth-box.gone{display:none;}
+.afield{position:relative;}
+.afield i{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--t3);pointer-events:none;}
+.ainp{width:100%;padding:13px 13px 13px 42px;background:var(--bg2);border:1px solid var(--bor);border-radius:12px;font-size:14px;font-weight:500;color:var(--t1);outline:none;transition:.25s;}
+.ainp:focus{border-color:var(--r);box-shadow:0 0 0 3px var(--rs);}
+.ainp::placeholder{color:var(--t3);}
+.abtn{padding:14px;border-radius:12px;background:var(--r);border:none;font-size:15px;font-weight:700;color:#fff;letter-spacing:1.3px;cursor:pointer;transition:.2s;box-shadow:0 6px 18px rgba(255,30,30,.25);}
+.abtn:active{background:var(--rd);transform:scale(.98);}
+.alink{text-align:center;font-size:12px;color:var(--t2);cursor:pointer;margin-top:4px;}
+.alink b{color:var(--r);font-weight:700;}
+.aguest{text-align:center;font-size:11px;color:var(--t3);cursor:pointer;text-decoration:underline;}
+.aerr{font-size:11px;color:var(--r);text-align:center;min-height:14px;}
+.afp{text-align:center;font-size:11px;cursor:pointer;color:var(--t3);}
+.afp b{color:var(--r);}
+
+/* ── SHELL ───────────────────────────── */
+#shell{height:100%;display:flex;flex-direction:column;max-width:430px;margin:0 auto;background:var(--bg0);position:relative;box-shadow:0 0 60px rgba(255,30,30,.05);}
+.scr{flex:1;overflow-y:auto;overflow-x:hidden;display:none;padding-bottom:calc(var(--nav) + 8px);animation:scrIn .22s ease;}
+.scr.on{display:block;}
+.scr::-webkit-scrollbar{display:none;}
+@keyframes scrIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── BOTTOM NAV ─────────────────────── */
+#bnav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(8,8,8,.96);backdrop-filter:blur(22px);border-top:1px solid var(--bor);display:flex;align-items:center;justify-content:space-around;z-index:200;padding-bottom:env(safe-area-inset-bottom,0px);}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;transition:.18s;min-width:50px;}
+.ni:active{background:var(--rs);border-radius:12px;}
+.ni i{font-size:22px;color:var(--t3);transition:.2s;}
+.ni s{font-size:9px;font-weight:600;color:var(--t3);letter-spacing:.3px;text-transform:uppercase;text-decoration:none;transition:.2s;}
+.ni.on i,.ni.on s{color:var(--r);}
+.ni.on::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--r);margin:0 auto;box-shadow:0 0 8px var(--r);}
+
+/* ── HEADER ─────────────────────────── */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 8px;}
+.hdr-l{display:flex;align-items:center;gap:10px;}
+.hdr-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(145deg,#180000,#2c0000);border:1.5px solid var(--borr);box-shadow:0 0 16px var(--rg);padding:5px;flex-shrink:0;}
+.logo{font-family:var(--fh);font-size:17px;font-weight:900;color:var(--r);letter-spacing:2.5px;line-height:1;}
+.logo b{color:var(--t1);font-weight:900;}
+.logo-sub{font-size:9px;color:var(--t3);letter-spacing:.4px;margin-top:2px;}
+.hdr-r{display:flex;gap:6px;}
+.ibtn{width:38px;height:38px;border-radius:10px;background:var(--bg2);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;position:relative;}
+.ibtn:active{transform:scale(.9);background:var(--bg3);}
+.ibtn i{font-size:19px;color:var(--t2);}
+.ibadge{position:absolute;top:-3px;right:-3px;min-width:15px;height:15px;border-radius:99px;background:var(--r);font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px;border:1.5px solid var(--bg0);box-shadow:0 0 6px var(--rg);}
+
+.sh{display:flex;align-items:center;justify-content:space-between;padding:0 14px;margin-bottom:10px;}
+.sh-t{font-size:16px;font-weight:700;letter-spacing:.3px;}
+.sh-t em{color:var(--r);font-style:normal;}
+.sh-a{font-size:11px;font-weight:700;color:var(--r);cursor:pointer;letter-spacing:.4px;display:flex;align-items:center;gap:2px;}
+.sh-a i{font-size:14px;}
+
+/* ── SEARCH BAR ─────────────────────── */
+.sbar{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--bor);border-radius:12px;padding:0 12px;margin:6px 14px 12px;transition:.25s;}
+.sbar:focus-within{border-color:var(--r);box-shadow:0 0 0 2.5px var(--rs);}
+.sbar i{font-size:18px;color:var(--t3);flex-shrink:0;}
+.sbar input{flex:1;background:none;border:none;outline:none;font-size:14px;font-weight:500;color:var(--t1);padding:12px 0;}
+.sbar input::placeholder{color:var(--t3);}
+.sbar .cls{font-size:18px;color:var(--t3);cursor:pointer;}
+
+/* ── CHIPS ──────────────────────────── */
+.chips{display:flex;gap:6px;padding:0 14px 10px;overflow-x:auto;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{padding:6px 14px;border-radius:20px;background:var(--bg2);border:1px solid var(--bor);font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:.18s;}
+.chip.on{background:var(--rs);border-color:var(--r);color:var(--r);box-shadow:0 0 12px rgba(255,30,30,.12);}
+.chip:active{transform:scale(.94);}
+
+/* ── HORIZONTAL ROWS ────────────────── */
+.hrow{display:flex;gap:12px;padding:2px 14px 4px;overflow-x:auto;scroll-snap-type:x mandatory;}
+.hrow::-webkit-scrollbar{display:none;}
+
+/* App card small (Uptodown style) */
+.ac{min-width:84px;max-width:84px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;scroll-snap-align:start;}
+.ac:active{opacity:.7;transform:scale(.96);}
+.ac-iw{position:relative;width:72px;}
+.ac-i{width:72px;height:72px;border-radius:18px;background:var(--bg3);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;}
+.ac-i img{width:100%;height:100%;object-fit:cover;}
+.pip{position:absolute;top:-4px;right:-4px;padding:2px 6px;border-radius:6px;font-size:8px;font-weight:700;letter-spacing:.3px;}
+.pip-r{background:var(--r);color:#fff;box-shadow:0 0 8px var(--rg);}
+.pip-g{background:var(--gold);color:#000;}
+.pip-n{background:var(--green);color:#000;}
+.pip-b{background:var(--blue);color:#fff;}
+.ac-n{font-size:11.5px;font-weight:600;text-align:center;line-height:1.2;max-width:80px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.ac-d{font-size:9px;color:var(--t3);}
+.ac-rt{font-size:9px;color:var(--gold);}
+
+/* ── EDITOR PICK CARD (BIG) ──────────── */
+.epicks{display:flex;gap:12px;padding:0 14px 4px;overflow-x:auto;scroll-snap-type:x mandatory;}
+.epicks::-webkit-scrollbar{display:none;}
+.epick{min-width:280px;max-width:280px;background:var(--bg2);border:1px solid var(--bor);border-radius:16px;overflow:hidden;cursor:pointer;scroll-snap-align:start;transition:.18s;position:relative;}
+.epick:active{transform:scale(.98);}
+.epick-cover{height:130px;background:linear-gradient(135deg,#180000,#2e0000);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;overflow:hidden;}
+.epick-cover img{width:100%;height:100%;object-fit:cover;}
+.epick-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 60%);}
+.epick-tag{position:absolute;top:10px;left:10px;background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:5px;letter-spacing:.6px;z-index:2;box-shadow:0 0 12px var(--rg);}
+.epick-body{padding:10px 12px 12px;display:flex;align-items:center;gap:10px;}
+.epick-i{width:42px;height:42px;border-radius:11px;background:var(--bg3);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden;}
+.epick-i img{width:100%;height:100%;object-fit:cover;}
+.epick-inf{flex:1;min-width:0;}
+.epick-n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.epick-m{font-size:10px;color:var(--t3);margin-top:1px;display:flex;align-items:center;gap:5px;}
+.epick-m .gold{color:var(--gold);}
+.epick-dl{padding:7px 13px;background:var(--rs);border:1px solid var(--borr);border-radius:9px;color:var(--r);font-size:11px;font-weight:700;letter-spacing:.4px;}
+
+/* ── GRID ────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bg1);}
+.gi{display:flex;flex-direction:column;align-items:center;padding:14px 6px;gap:7px;cursor:pointer;background:var(--bg0);transition:.15s;}
+.gi:active{background:var(--bg2);}
+.gi-i{width:62px;height:62px;border-radius:15px;background:var(--bg3);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;font-size:26px;position:relative;overflow:hidden;}
+.gi-i img{width:100%;height:100%;object-fit:cover;}
+.gi-mpip{position:absolute;bottom:0;right:0;background:var(--r);color:#fff;font-size:7px;font-weight:700;padding:1.5px 4px;letter-spacing:.3px;}
+.gi-n{font-size:11px;font-weight:600;text-align:center;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.gi-r{font-size:9px;color:var(--gold);}
+
+/* ── LIST ITEM (Uptodown style row) ──── */
+.li{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--bor);transition:.15s;}
+.li:active{background:var(--bg2);}
+.li-rank{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--t3);width:18px;text-align:center;flex-shrink:0;}
+.li-rank.gold{color:var(--gold);}
+.li-rank.silver{color:#C0C0C0;}
+.li-rank.bronze{color:#CD7F32;}
+.li-i{width:54px;height:54px;border-radius:13px;background:var(--bg3);border:1px solid var(--bor);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;}
+.li-i img{width:100%;height:100%;object-fit:cover;}
+.li-inf{flex:1;min-width:0;}
+.li-n{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.li-m{font-size:11px;color:var(--t2);margin-top:2px;}
+.li-sub{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.li-rt{font-size:10px;color:var(--gold);font-weight:600;}
+.li-dl{font-size:10px;color:var(--t3);}
+.li-act{padding:7px 14px;border-radius:10px;background:var(--rs);border:1px solid var(--borr);color:var(--r);font-size:11px;font-weight:700;flex-shrink:0;letter-spacing:.4px;}
+
+/* ── CATEGORY GRID ─────────────────── */
+.catg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 14px;margin-bottom:14px;}
+.cati{display:flex;flex-direction:column;align-items:center;gap:7px;padding:13px 4px;background:var(--bg2);border:1px solid var(--bor);border-radius:14px;cursor:pointer;transition:.18s;}
+.cati:active{background:var(--bg3);transform:scale(.96);}
+.cati-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;}
+.cati-ic i{font-size:21px;}
+.cati-lb{font-size:10px;font-weight:600;color:var(--t2);text-align:center;}
+
+/* ── BANNER CAROUSEL ───────────────── */
+.bwrap{margin:0 14px 6px;border-radius:18px;overflow:hidden;height:158px;position:relative;border:1px solid var(--bor);}
+.bslide{position:absolute;inset:0;opacity:0;transition:opacity .6s;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;}
+.bslide.on{opacity:1;}
+.bov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.92),transparent 65%);}
+.bb{background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:5px;width:fit-content;margin-bottom:6px;position:relative;z-index:1;letter-spacing:.6px;box-shadow:0 0 12px var(--rg);}
+.bt{font-size:18px;font-weight:700;position:relative;z-index:1;line-height:1.15;}
+.bs{font-size:11px;color:rgba(255,255,255,.7);position:relative;z-index:1;margin-top:3px;}
+.bdots{display:flex;gap:5px;justify-content:center;margin:8px 0 14px;}
+.bd{width:5px;height:5px;border-radius:50%;background:var(--bg4);cursor:pointer;transition:.3s;}
+.bd.on{width:16px;border-radius:3px;background:var(--r);box-shadow:0 0 8px var(--rg);}
+.bgr{background:linear-gradient(135deg,#180000,#2e0000,#070000);}
+.bgg{background:linear-gradient(135deg,#001a0d,#002c18,#000a06);}
+.bgb{background:linear-gradient(135deg,#00101c,#001b2e,#000608);}
+.bgy{background:linear-gradient(135deg,#1a1300,#2e2200,#080600);}
+
+/* ── OFFER CARD ────────────────────── */
+.offer{margin:0 14px 16px;border-radius:18px;cursor:pointer;background:linear-gradient(135deg,#1a0000,#2a0000);border:1px solid var(--borr);padding:18px;position:relative;overflow:hidden;box-shadow:0 0 30px rgba(255,30,30,.08);}
+.otag{background:var(--r);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:5px;width:fit-content;margin-bottom:8px;letter-spacing:1px;}
+.ott{font-size:19px;font-weight:700;line-height:1.2;}
+.ots{font-size:11px;color:var(--t2);margin-top:4px;}
+.octa{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:9px 16px;background:var(--r);border-radius:9px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px;}
+.octa i{font-size:15px;}
+.oem{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:60px;opacity:.18;}
+
+/* ── PROFILE ───────────────────────── */
+.phdr{background:linear-gradient(180deg,var(--bg2) 0%,transparent);padding:24px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;overflow:hidden;}
+.phdr::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:240px;height:240px;border-radius:50%;background:var(--rs);filter:blur(45px);}
+.pav{width:78px;height:78px;border-radius:50%;background:var(--bg3);border:2.5px solid var(--r);display:flex;align-items:center;justify-content:center;font-size:30px;position:relative;z-index:1;box-shadow:0 0 24px var(--rg);}
+.pnm{font-size:21px;font-weight:700;position:relative;z-index:1;}
+.prole{font-size:10px;color:var(--r);font-weight:700;letter-spacing:1.8px;text-transform:uppercase;position:relative;z-index:1;}
+.pemail{font-size:11px;color:var(--t2);position:relative;z-index:1;}
+.stats{display:flex;gap:8px;padding:0 14px 14px;}
+.stc{flex:1;background:var(--bg2);border:1px solid var(--bor);border-radius:13px;padding:13px 6px;text-align:center;}
+.stv{font-family:var(--fh);font-size:19px;font-weight:700;color:var(--r);}
+.stl{font-size:10px;color:var(--t3);margin-top:2px;letter-spacing:.3px;}
+.menu{padding:0 14px;display:flex;flex-direction:column;gap:7px;}
+.mi{display:flex;align-items:center;gap:13px;padding:14px 14px;background:var(--bg2);border:1px solid var(--bor);border-radius:13px;cursor:pointer;transition:.15s;}
+.mi:active{background:var(--bg3);}
+.mi-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.mi-ic i{font-size:19px;}
+.cr{background:var(--rs);} .cr i{color:var(--r);}
+.cg{background:rgba(0,255,156,.07);} .cg i{color:var(--green);}
+.cb{background:rgba(74,158,255,.07);} .cb i{color:var(--blue);}
+.cy{background:rgba(255,215,0,.07);} .cy i{color:var(--gold);}
+.cp{background:rgba(160,100,255,.07);} .cp i{color:var(--purp);}
+.mi-inf{flex:1;}
+.mi-n{font-size:14px;font-weight:700;}
+.mi-s{font-size:10px;color:var(--t3);margin-top:1px;}
+.arr{font-size:18px;color:var(--t3);}
+
+/* ── SETTINGS / SUBPAGES ──────────── */
+.set-sec{padding:12px 14px 6px;}
+.set-lbl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:1.4px;padding:4px 6px 8px;}
+.set-row{display:flex;align-items:center;gap:13px;padding:13px 14px;background:var(--bg2);border:1px solid var(--bor);border-radius:13px;margin-bottom:7px;cursor:pointer;transition:.15s;}
+.set-row:active{background:var(--bg3);}
+.set-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.set-ic i{font-size:19px;}
+.set-inf{flex:1;min-width:0;}
+.set-n{font-size:13.5px;font-weight:700;color:var(--t1);}
+.set-s{font-size:10.5px;color:var(--t3);margin-top:2px;}
+.tg{position:relative;width:42px;height:22px;flex-shrink:0;}
+.tg input{opacity:0;width:0;height:0;}
+.tg span{position:absolute;cursor:pointer;inset:0;background:var(--bg4);border-radius:99px;transition:.2s;}
+.tg span:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+.tg input:checked + span{background:var(--r);box-shadow:0 0 8px var(--rg);}
+.tg input:checked + span:before{transform:translateX(20px);}
+.tg input:disabled + span{opacity:.55;cursor:not-allowed;}
+
+.notif-i{display:flex;gap:11px;padding:13px;background:var(--bg2);border:1px solid var(--bor);border-radius:12px;margin:0 14px 8px;cursor:pointer;transition:.15s;}
+.notif-i:active{background:var(--bg3);}
+.notif-ic{width:38px;height:38px;border-radius:10px;background:var(--rs);color:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.notif-ti{font-size:13px;font-weight:700;color:var(--t1);}
+.notif-bd{font-size:11px;color:var(--t2);margin-top:3px;line-height:1.5;}
+.notif-tm{font-size:10px;color:var(--t3);margin-top:5px;}
+.notif-i.unread{border-color:var(--r);box-shadow:0 0 0 1px var(--rs);}
+
+.fav-i{display:flex;gap:11px;padding:11px;background:var(--bg2);border:1px solid var(--bor);border-radius:12px;margin:0 14px 8px;cursor:pointer;align-items:center;}
+.fav-ic{width:48px;height:48px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;flex-shrink:0;}
+.fav-ic img{width:100%;height:100%;object-fit:cover;}
+.fav-rm{width:30px;height:30px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--r);}
+.fav-rm i{font-size:16px;}
+
+.legal{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:20px;}
+.legal-box{background:var(--bg1);border:1px solid var(--bor);border-radius:16px;width:100%;max-width:380px;max-height:80vh;overflow-y:auto;padding:20px;}
+.legal-box h3{font-family:var(--fh);font-size:16px;color:var(--r);margin-bottom:8px;letter-spacing:1px;}
+.legal-box p{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:8px;}
+.legal-x{display:block;margin:14px auto 0;padding:9px 24px;background:var(--r);color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;}
+
+/* ── DETAIL SHEET ──────────────────── */
+#dov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:.27s;}
+#dov.on{opacity:1;visibility:visible;}
+#dsh{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:430px;max-height:94vh;background:var(--bg1);border-radius:24px 24px 0 0;border-top:1px solid var(--bor);z-index:501;transition:transform .35s cubic-bezier(.32,.72,0,1);overflow-y:auto;}
+#dsh::-webkit-scrollbar{display:none;}
+#dsh.on{transform:translateX(-50%) translateY(0);}
+.handle{width:38px;height:4px;background:var(--bg4);border-radius:99px;margin:11px auto 4px;}
+.dban{height:170px;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;flex-shrink:0;overflow:hidden;}
+.dban-ov{position:absolute;inset:0;background:linear-gradient(0deg,var(--bg1),transparent 70%);}
+.dhead{display:flex;align-items:flex-end;gap:14px;padding:0 16px;margin-top:-32px;position:relative;z-index:2;}
+.dapp-i{width:74px;height:74px;border-radius:19px;border:3px solid var(--bg1);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;overflow:hidden;background:var(--bg3);}
+.dapp-i img{width:100%;height:100%;object-fit:cover;}
+.dapp-n{font-size:21px;font-weight:700;line-height:1.15;}
+.dapp-d{font-size:12px;color:var(--t2);margin-top:2px;}
+.dtags{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px 0;}
+.dtag{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.3px;}
+.dtag-mod{background:var(--r);color:#fff;}
+.dtag-app{background:var(--blue);color:#fff;}
+.dtag-cat{background:var(--bg3);color:var(--t2);}
+.dtag-feat{background:var(--gold);color:#000;}
+.dmeta{display:flex;border-top:1px solid var(--bor);border-bottom:1px solid var(--bor);margin:14px 0 0;}
+.dm{flex:1;padding:12px 4px;text-align:center;border-right:1px solid var(--bor);}
+.dm:last-child{border-right:none;}
+.dm-v{font-size:14px;font-weight:700;color:var(--r);}
+.dm-l{font-size:9px;color:var(--t3);margin-top:2px;text-transform:uppercase;letter-spacing:.4px;}
+.dver{display:flex;gap:8px;padding:14px 16px 0;}
+.vbtn{flex:1;padding:10px;border-radius:11px;border:1px solid var(--borr);background:var(--rs);font-size:12px;font-weight:700;color:var(--r);cursor:pointer;letter-spacing:.4px;}
+.vbtn.off{background:var(--bg2);border-color:var(--bor);color:var(--t2);}
+.dacts{display:flex;gap:8px;padding:14px 16px;}
+.ddl{flex:1;padding:14px;border-radius:13px;background:var(--r);border:none;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;letter-spacing:.6px;transition:.2s;box-shadow:0 6px 18px rgba(255,30,30,.25);}
+.ddl:active{transform:scale(.97);background:var(--rd);}
+.ddl i{font-size:18px;}
+.dic{width:50px;height:50px;border-radius:13px;background:var(--bg2);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;}
+.dic i{font-size:21px;color:var(--t2);transition:.2s;}
+.dic.fav-on i{color:var(--r);}
+.dprog{padding:0 16px 14px;}
+.dpb{height:4px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.dpf{height:100%;background:linear-gradient(90deg,var(--r),#ff7070);width:0;transition:width .25s;box-shadow:0 0 10px var(--rg);}
+.dpi{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--t3);}
+.dlbl{padding:6px 16px 8px;font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;}
+.ddesc{padding:0 16px 16px;font-size:13px;color:var(--t2);line-height:1.75;}
+.dwhats{padding:0 16px 16px;}
+.dwhats-box{background:var(--bg2);border:1px solid var(--bor);border-radius:12px;padding:12px;font-size:12px;color:var(--t2);line-height:1.7;}
+.dscreen{display:flex;gap:8px;padding:0 16px 18px;overflow-x:auto;}
+.dscreen::-webkit-scrollbar{display:none;}
+.dsc-img{flex-shrink:0;width:160px;height:280px;border-radius:12px;background:linear-gradient(135deg,#180000,#0a0000);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;font-size:38px;color:var(--t3);}
+
+/* ── DOWNLOADS ─────────────────────── */
+.dli{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--bor);}
+.dli-i{width:48px;height:48px;border-radius:13px;background:var(--bg2);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;overflow:hidden;}
+.dli-i img{width:100%;height:100%;object-fit:cover;}
+.dli-inf{flex:1;min-width:0;}
+.dli-n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dli-pb{height:3px;background:var(--bg3);border-radius:99px;margin-top:6px;overflow:hidden;}
+.dli-pf{height:100%;background:linear-gradient(90deg,var(--r),#ff7070);width:100%;}
+.dli-s{font-size:10px;color:var(--t3);margin-top:4px;}
+.dtag-done{padding:5px 11px;border-radius:9px;border:1px solid var(--green);color:var(--green);font-size:11px;font-weight:700;flex-shrink:0;letter-spacing:.4px;}
+
+/* ── SUBHEADER ─────────────────────── */
+.subhdr{display:flex;align-items:center;gap:10px;padding:14px 14px 8px;}
+.bkbtn{width:36px;height:36px;border-radius:11px;background:var(--bg2);border:1px solid var(--bor);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.bkbtn i{font-size:19px;color:var(--t2);}
+.subhdr-t{font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:1.4px;}
+
+/* ── SKELETON ──────────────────────── */
+.sk{background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);background-size:200%;animation:sk 1.4s infinite;border-radius:10px;}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-i{width:72px;height:72px;border-radius:18px;}
+.sk-t{height:11px;width:64px;border-radius:6px;margin-top:5px;}
+.sk-s{height:9px;width:40px;border-radius:6px;margin-top:3px;}
+
+/* ── EMPTY ─────────────────────────── */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;gap:10px;color:var(--t3);text-align:center;grid-column:1/-1;}
+.empty i{font-size:48px;color:var(--bg4);}
+.empty p{font-size:13px;line-height:1.6;color:var(--t2);}
+.empty small{font-size:11px;color:var(--t3);}
+
+/* ── TOAST ─────────────────────────── */
+#toast{position:fixed;bottom:calc(var(--nav) + 16px);left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg2);border:1px solid var(--borr);border-radius:13px;padding:11px 20px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:.27s;white-space:nowrap;box-shadow:0 8px 28px rgba(0,0,0,.7),0 0 18px rgba(255,30,30,.12);pointer-events:none;}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── FORGOT PW SHEET ────────────────── */
+.fp-wrap{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;}
+.fp-box{width:100%;max-width:340px;background:var(--bg2);border:1px solid var(--bor);border-radius:20px;padding:24px;}
+.fp-title{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--r);letter-spacing:2px;margin-bottom:6px;}
+.fp-sub{font-size:12px;color:var(--t2);margin-bottom:18px;}
+.fp-msg{font-size:12px;min-height:16px;margin-bottom:8px;}
+.fp-acts{display:flex;gap:8px;}
+.fp-cancel{flex:1;padding:12px;border-radius:12px;background:var(--bg3);border:1px solid var(--bor);font-size:13px;font-weight:700;color:var(--t2);cursor:pointer;}
+.fp-send{flex:1;padding:12px;border-radius:12px;background:var(--r);border:none;font-size:13px;font-weight:700;color:#fff;cursor:pointer;}
+
+/* ── MAINTENANCE ───────────────────── */
+.maint{position:fixed;inset:0;z-index:9998;background:var(--bg0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:24px;}
+.maint i{font-size:64px;color:var(--r);}
+.maint-t{font-family:var(--fh);font-size:18px;font-weight:900;color:var(--r);letter-spacing:2px;}
+.maint-s{font-size:14px;color:var(--t2);max-width:280px;line-height:1.6;}
+
+/* ── SECTION DIVIDER ───────────────── */
+.divider{height:1px;background:var(--bor);margin:14px 14px;}
+.spacer-sm{height:8px;}
+.spacer{height:14px;}
+.spacer-lg{height:24px;}
+</style>
+</head>
+<body>
+
+<!-- SVG ICON DEFINITION -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="sg-bag" viewBox="0 0 100 100">
+      <path d="M32 38 L32 28 C32 17 40 11 50 11 C60 11 68 17 68 28 L68 38" fill="none" stroke="#FF1E1E" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M22 38 L78 38 L73.5 86 C73.2 89 70.7 91 67.7 91 L32.3 91 C29.3 91 26.8 89 26.5 86 Z" fill="none" stroke="#FF1E1E" stroke-width="4.5" stroke-linejoin="round"/>
+      <text x="50" y="74" text-anchor="middle" font-family="Orbitron, sans-serif" font-size="34" font-weight="900" fill="#FF1E1E">S</text>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- SPLASH -->
+<div id="spl">
+  <div class="spl-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+  <div class="spl-name">SG STORE</div>
+  <div class="spl-tag">Apps &bull; Games &bull; Mods</div>
+  <div class="spl-loader"><div class="spl-bar"></div></div>
+  <div class="spl-copy">supergiantgamesstudio.eg &nbsp;|&nbsp; @MCV_M</div>
+</div>
+
+<!-- AUTH -->
+<div id="auth">
+  <div class="auth-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+  <div class="auth-logo">SG STORE</div>
+  <div class="auth-sub">Your Ultimate App Store</div>
+  <!-- Login -->
+  <div class="auth-box" id="box-login">
+    <div class="afield"><i class="material-icons-round">email</i><input class="ainp" id="l-em" type="email" placeholder="Email address"></div>
+    <div class="afield"><i class="material-icons-round">lock</i><input class="ainp" id="l-pw" type="password" placeholder="Password"></div>
+    <div class="aerr" id="l-err"></div>
+    <button class="abtn" onclick="doLogin()">LOGIN</button>
+    <div class="afp" onclick="openFP()">Forgot password? <b>Reset here</b></div>
+    <div class="alink" onclick="swAuth('reg')">Don't have an account? <b>Register</b></div>
+    <div class="aguest" onclick="guestMode()">Continue as Guest</div>
+  </div>
+  <!-- Register -->
+  <div class="auth-box gone" id="box-reg">
+    <div class="afield"><i class="material-icons-round">person</i><input class="ainp" id="r-nm" type="text" placeholder="Username"></div>
+    <div class="afield"><i class="material-icons-round">email</i><input class="ainp" id="r-em" type="email" placeholder="Email address"></div>
+    <div class="afield"><i class="material-icons-round">lock</i><input class="ainp" id="r-pw" type="password" placeholder="Password (min 6 characters)"></div>
+    <div class="aerr" id="r-err"></div>
+    <button class="abtn" onclick="doRegister()">CREATE ACCOUNT</button>
+    <div class="alink" onclick="swAuth('login')">Already have an account? <b>Login</b></div>
+    <div class="aguest" onclick="guestMode()">Continue as Guest</div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div id="shell">
+
+  <!-- HOME -->
+  <div class="scr on" id="s-home">
+    <div class="hdr">
+      <div class="hdr-l">
+        <div class="hdr-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+        <div>
+          <div class="logo">SG <b>STORE</b></div>
+          <div class="logo-sub">supergiantgamesstudio.eg</div>
+        </div>
+      </div>
+      <div class="hdr-r">
+        <div class="ibtn" onclick="goTo('s-dl')">
+          <i class="material-icons-round">file_download</i>
+          <div class="ibadge" id="dl-badge" style="display:none">0</div>
+        </div>
+        <div class="ibtn" onclick="nav('n-profile')"><i class="material-icons-round">person</i></div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="bwrap">
+      <div class="bslide bgr on"><div class="bov"></div><div class="bb">FEATURED</div><div class="bt">Top Apps 2025</div><div class="bs">Best apps for your device</div></div>
+      <div class="bslide bgg"><div class="bov"></div><div class="bb">TOP MOD</div><div class="bt">Best Mods Ever</div><div class="bs">Premium unlocked for everyone</div></div>
+      <div class="bslide bgb"><div class="bov"></div><div class="bb">NEW</div><div class="bt">Just Arrived</div><div class="bs">Fresh additions this week</div></div>
+      <div class="bslide bgy"><div class="bov"></div><div class="bb">TRENDING</div><div class="bt">Most Downloaded</div><div class="bs">Join millions worldwide</div></div>
+    </div>
+    <div class="bdots" id="bdots">
+      <div class="bd on" onclick="goBan(0)"></div>
+      <div class="bd" onclick="goBan(1)"></div>
+      <div class="bd" onclick="goBan(2)"></div>
+      <div class="bd" onclick="goBan(3)"></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="sh"><div class="sh-t">Categories</div></div>
+    <div class="catg">
+      <div class="cati" onclick="goFilter('app','Social')"><div class="cati-ic" style="background:rgba(255,30,30,.1)"><i class="material-icons-round" style="color:var(--r)">people</i></div><div class="cati-lb">Social</div></div>
+      <div class="cati" onclick="goFilter('app','Tools')"><div class="cati-ic" style="background:rgba(74,158,255,.1)"><i class="material-icons-round" style="color:var(--blue)">build</i></div><div class="cati-lb">Tools</div></div>
+      <div class="cati" onclick="goFilter('app','Games')"><div class="cati-ic" style="background:rgba(255,215,0,.1)"><i class="material-icons-round" style="color:var(--gold)">sports_esports</i></div><div class="cati-lb">Games</div></div>
+      <div class="cati" onclick="goFilter('app','Entertainment')"><div class="cati-ic" style="background:rgba(0,255,156,.1)"><i class="material-icons-round" style="color:var(--green)">movie</i></div><div class="cati-lb">Movies</div></div>
+      <div class="cati" onclick="goFilter('app','Productivity')"><div class="cati-ic" style="background:rgba(255,140,0,.1)"><i class="material-icons-round" style="color:var(--orng)">work</i></div><div class="cati-lb">Work</div></div>
+      <div class="cati" onclick="goFilter('app','Education')"><div class="cati-ic" style="background:rgba(160,100,255,.1)"><i class="material-icons-round" style="color:var(--purp)">school</i></div><div class="cati-lb">Learn</div></div>
+      <div class="cati" onclick="goFilter('mod','Mod Apps')"><div class="cati-ic" style="background:rgba(255,30,30,.1)"><i class="material-icons-round" style="color:var(--r)">apps</i></div><div class="cati-lb">Mod Apps</div></div>
+      <div class="cati" onclick="goFilter('mod','Mod Games')"><div class="cati-ic" style="background:rgba(255,215,0,.1)"><i class="material-icons-round" style="color:var(--gold)">gamepad</i></div><div class="cati-lb">Mod Games</div></div>
+    </div>
+
+    <!-- Editor's Picks (Big Cards) -->
+    <div class="sh"><div class="sh-t"><em>Editor's</em> Picks</div><div class="sh-a" onclick="nav('n-apps')">More <i class="material-icons-round">chevron_right</i></div></div>
+    <div class="epicks" id="ed-row">
+      <div class="epick"><div class="epick-cover bgr"><span style="font-size:48px;position:relative;z-index:1">🎮</span></div><div class="epick-body"><div class="epick-i sk"></div><div class="epick-inf"><div class="sk sk-t" style="margin:0"></div><div class="sk sk-s"></div></div></div></div>
+      <div class="epick"><div class="epick-cover bgb"><span style="font-size:48px;position:relative;z-index:1">📱</span></div><div class="epick-body"><div class="epick-i sk"></div><div class="epick-inf"><div class="sk sk-t" style="margin:0"></div><div class="sk sk-s"></div></div></div></div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- Trending -->
+    <div class="sh"><div class="sh-t"><em>Trending</em> Apps</div><div class="sh-a" onclick="nav('n-apps')">See all <i class="material-icons-round">chevron_right</i></div></div>
+    <div class="hrow" id="tr-row">
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- Offer -->
+    <div class="offer" onclick="nav('n-mods')">
+      <div class="otag">SPECIAL OFFER</div>
+      <div class="ott">Top Mods<br>100% Free</div>
+      <div class="ots">Premium unlocked apps at no cost</div>
+      <div class="octa"><i class="material-icons-round">bolt</i>Explore Mods</div>
+      <div class="oem">🔥</div>
+    </div>
+
+    <!-- Top Mods -->
+    <div class="sh"><div class="sh-t"><em>Top</em> Mods</div><div class="sh-a" onclick="nav('n-mods')">See all <i class="material-icons-round">chevron_right</i></div></div>
+    <div class="hrow" id="mod-row">
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- Top Games -->
+    <div class="sh"><div class="sh-t"><em>Top</em> Games</div><div class="sh-a" onclick="goFilter('app','Games')">See all <i class="material-icons-round">chevron_right</i></div></div>
+    <div class="hrow" id="game-row">
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+      <div class="ac"><div class="sk sk-i"></div><div class="sk sk-t"></div><div class="sk sk-s"></div></div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- New Releases -->
+    <div class="sh"><div class="sh-t"><em>New</em> Releases</div><div class="sh-a" onclick="nav('n-apps')">See all <i class="material-icons-round">chevron_right</i></div></div>
+    <div id="new-list">
+      <div class="empty"><i class="material-icons-round">new_releases</i><p>Loading new releases...</p></div>
+    </div>
+    <div class="spacer"></div>
+
+    <!-- Top Charts -->
+    <div class="sh"><div class="sh-t"><em>Top</em> Charts</div></div>
+    <div id="top-list">
+      <div class="empty"><i class="material-icons-round">leaderboard</i><p>Loading top apps...</p></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div style="text-align:center;padding:14px 0 8px;color:var(--t3);font-size:10px;line-height:2">
+      <div style="font-family:var(--fh);font-size:13px;color:var(--r);letter-spacing:2.5px;margin-bottom:3px">SG STORE</div>
+      &copy; 2025 supergiantgamesstudio.eg<br>Developer: @MCV_M
+    </div>
+  </div>
+
+  <!-- APPS -->
+  <div class="scr" id="s-apps">
+    <div class="hdr">
+      <div class="hdr-l">
+        <div class="hdr-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+        <div><div class="logo">SG <b>APPS</b></div><div class="logo-sub">Browse all applications</div></div>
+      </div>
+    </div>
+    <div class="sbar"><i class="material-icons-round">search</i><input id="aq" type="text" placeholder="Search apps..." oninput="rApps()"><i class="material-icons-round cls" onclick="clr('aq',rApps)">close</i></div>
+    <div class="chips" id="ac-chips">
+      <div class="chip on" onclick="sAC(this,'All')">All</div>
+      <div class="chip" onclick="sAC(this,'Social')">Social</div>
+      <div class="chip" onclick="sAC(this,'Tools')">Tools</div>
+      <div class="chip" onclick="sAC(this,'Productivity')">Productivity</div>
+      <div class="chip" onclick="sAC(this,'Entertainment')">Entertainment</div>
+      <div class="chip" onclick="sAC(this,'Education')">Education</div>
+      <div class="chip" onclick="sAC(this,'Games')">Games</div>
+    </div>
+    <div class="grid" id="apps-grid"><div class="empty"><i class="material-icons-round">hourglass_empty</i><p>Loading...</p></div></div>
+  </div>
+
+  <!-- MODS -->
+  <div class="scr" id="s-mods">
+    <div class="hdr">
+      <div class="hdr-l">
+        <div class="hdr-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+        <div><div class="logo">SG <b>MODS</b></div><div class="logo-sub">Premium unlocked apps</div></div>
+      </div>
+    </div>
+    <div class="sbar"><i class="material-icons-round">search</i><input id="mq" type="text" placeholder="Search mods..." oninput="rMods()"><i class="material-icons-round cls" onclick="clr('mq',rMods)">close</i></div>
+    <div class="chips" id="mc-chips">
+      <div class="chip on" onclick="sMC(this,'All')">All</div>
+      <div class="chip" onclick="sMC(this,'Mod Apps')">Mod Apps</div>
+      <div class="chip" onclick="sMC(this,'Mod Games')">Mod Games</div>
+      <div class="chip" onclick="sMC(this,'Premium')">Premium</div>
+      <div class="chip" onclick="sMC(this,'Tweaked')">Tweaked</div>
+    </div>
+    <div class="grid" id="mods-grid"><div class="empty"><i class="material-icons-round">hourglass_empty</i><p>Loading...</p></div></div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="scr" id="s-search">
+    <div class="hdr">
+      <div class="hdr-l">
+        <div class="hdr-icon"><div class="sg-svg" style="width:100%;height:100%"><svg><use href="#sg-bag"/></svg></div></div>
+        <div><div class="logo">SEARCH</div><div class="logo-sub">Find anything</div></div>
+      </div>
+    </div>
+    <div class="sbar"><i class="material-icons-round">search</i><input id="sq" type="text" placeholder="Apps, mods, games..." oninput="doSearch()"><i class="material-icons-round cls" onclick="clrSearch()">close</i></div>
+    <div id="si" style="padding:48px 20px;text-align:center;color:var(--t3)">
+      <i class="material-icons-round" style="font-size:54px;color:var(--bg3);display:block;margin-bottom:14px">search</i>
+      <div style="font-size:15px;font-weight:600;color:var(--t2);margin-bottom:5px">Find anything</div>
+      <div style="font-size:12px">Search apps, mods and games</div>
+    </div>
+    <div id="sr" style="display:none"></div>
+    <div id="se" style="display:none;padding:48px 20px;text-align:center;color:var(--t3)">
+      <i class="material-icons-round" style="font-size:50px;color:var(--bg3);display:block;margin-bottom:12px">search_off</i>
+      <div style="font-size:14px;font-weight:600;color:var(--t2)">No results found</div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="scr" id="s-profile">
+    <div class="phdr">
+      <div class="pav">👤</div>
+      <div class="pnm" id="p-nm">Guest User</div>
+      <div class="prole" id="p-role">USER</div>
+      <div class="pemail" id="p-em"></div>
+    </div>
+    <div class="stats">
+      <div class="stc"><div class="stv" id="st-dl">0</div><div class="stl">DOWNLOADS</div></div>
+      <div class="stc"><div class="stv" id="st-fv">0</div><div class="stl">FAVORITES</div></div>
+      <div class="stc"><div class="stv" id="st-rv">0</div><div class="stl">REVIEWS</div></div>
+    </div>
+    <div class="menu">
+      <div class="mi" onclick="goTo('s-dl')"><div class="mi-ic cr"><i class="material-icons-round">file_download</i></div><div class="mi-inf"><div class="mi-n">My Downloads</div><div class="mi-s">View download history</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="mi" onclick="goTo('s-fav')"><div class="mi-ic cr"><i class="material-icons-round">favorite</i></div><div class="mi-inf"><div class="mi-n">My Favorites</div><div class="mi-s">Saved apps and mods</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="mi" onclick="goTo('s-notif')"><div class="mi-ic cb"><i class="material-icons-round">notifications</i></div><div class="mi-inf"><div class="mi-n">Notifications</div><div class="mi-s">Updates and offers</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="mi" onclick="goTo('s-settings')"><div class="mi-ic cy"><i class="material-icons-round">settings</i></div><div class="mi-inf"><div class="mi-n">Settings</div><div class="mi-s">App preferences</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="mi" onclick="goTo('s-about')"><div class="mi-ic cp"><i class="material-icons-round">info_outline</i></div><div class="mi-inf"><div class="mi-n">About</div><div class="mi-s">SG Store v2.0</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="mi" onclick="openTelegram()"><div class="mi-ic cg"><i class="material-icons-round">help_outline</i></div><div class="mi-inf"><div class="mi-n">Help &amp; Support</div><div class="mi-s">Contact @MCV_M on Telegram</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div style="height:6px"></div>
+      <div class="mi" onclick="doLogout()"><div class="mi-ic cr"><i class="material-icons-round">logout</i></div><div class="mi-inf"><div class="mi-n">Logout</div><div class="mi-s">Sign out of your account</div></div><i class="material-icons-round arr">chevron_right</i></div>
+    </div>
+    <div class="spacer-lg"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="scr" id="s-settings">
+    <div class="subhdr">
+      <div class="bkbtn" onclick="goBack()"><i class="material-icons-round">arrow_back</i></div>
+      <div class="subhdr-t">SETTINGS</div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">PREFERENCES</div>
+      <div class="set-row"><div class="set-ic cb"><i class="material-icons-round">notifications_active</i></div><div class="set-inf"><div class="set-n">Push Notifications</div><div class="set-s">Get notified about updates</div></div><label class="tg"><input type="checkbox" id="set-notif" onchange="setPref('notif',this.checked)"><span></span></label></div>
+      <div class="set-row"><div class="set-ic cy"><i class="material-icons-round">play_circle</i></div><div class="set-inf"><div class="set-n">Auto-Play Banners</div><div class="set-s">Rotate home banners automatically</div></div><label class="tg"><input type="checkbox" id="set-auto" onchange="setPref('auto',this.checked)"><span></span></label></div>
+      <div class="set-row"><div class="set-ic cg"><i class="material-icons-round">wifi</i></div><div class="set-inf"><div class="set-n">Download via WiFi only</div><div class="set-s">Save your mobile data</div></div><label class="tg"><input type="checkbox" id="set-wifi" onchange="setPref('wifi',this.checked)"><span></span></label></div>
+      <div class="set-row"><div class="set-ic cr"><i class="material-icons-round">dark_mode</i></div><div class="set-inf"><div class="set-n">Dark Mode</div><div class="set-s">Always on for SG Store</div></div><label class="tg"><input type="checkbox" checked disabled><span></span></label></div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">LANGUAGE</div>
+      <div class="set-row" onclick="setLang('en')"><div class="set-ic cb"><i class="material-icons-round">language</i></div><div class="set-inf"><div class="set-n">English</div><div class="set-s">App language</div></div><i class="material-icons-round arr" id="lang-en">check</i></div>
+      <div class="set-row" onclick="setLang('ar')"><div class="set-ic cy"><i class="material-icons-round">translate</i></div><div class="set-inf"><div class="set-n">العربية</div><div class="set-s">لغة التطبيق</div></div><i class="material-icons-round arr" id="lang-ar" style="display:none">check</i></div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">STORAGE</div>
+      <div class="set-row" onclick="clearCache()"><div class="set-ic cr"><i class="material-icons-round">cleaning_services</i></div><div class="set-inf"><div class="set-n">Clear Cache</div><div class="set-s" id="cache-sz">Calculating...</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="set-row" onclick="clearDownloads()"><div class="set-ic cy"><i class="material-icons-round">delete_outline</i></div><div class="set-inf"><div class="set-n">Clear Download History</div><div class="set-s" id="dl-count">0 downloads</div></div><i class="material-icons-round arr">chevron_right</i></div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">ACCOUNT</div>
+      <div class="set-row" onclick="goTo('s-profile')"><div class="set-ic cp"><i class="material-icons-round">person</i></div><div class="set-inf"><div class="set-n" id="set-acct">Profile</div><div class="set-s" id="set-acct-em">View account details</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="set-row" onclick="doLogout()"><div class="set-ic cr"><i class="material-icons-round">logout</i></div><div class="set-inf"><div class="set-n">Sign Out</div><div class="set-s">End current session</div></div><i class="material-icons-round arr">chevron_right</i></div>
+    </div>
+    <div class="spacer-lg"></div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="scr" id="s-notif">
+    <div class="subhdr">
+      <div class="bkbtn" onclick="goBack()"><i class="material-icons-round">arrow_back</i></div>
+      <div class="subhdr-t">NOTIFICATIONS</div>
+    </div>
+    <div id="notif-list"><div class="empty" style="padding:60px 20px"><i class="material-icons-round">notifications_off</i><p>No notifications yet</p><small>You'll see updates and offers here</small></div></div>
+  </div>
+
+  <!-- FAVORITES -->
+  <div class="scr" id="s-fav">
+    <div class="subhdr">
+      <div class="bkbtn" onclick="goBack()"><i class="material-icons-round">arrow_back</i></div>
+      <div class="subhdr-t">FAVORITES</div>
+    </div>
+    <div id="fav-list"><div class="empty" style="padding:60px 20px"><i class="material-icons-round">favorite_border</i><p>No favorites yet</p><small>Tap the heart icon on any app</small></div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="scr" id="s-about">
+    <div class="subhdr">
+      <div class="bkbtn" onclick="goBack()"><i class="material-icons-round">arrow_back</i></div>
+      <div class="subhdr-t">ABOUT</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding:24px 16px 12px;gap:10px">
+      <div class="spl-icon" style="width:90px;height:90px;border-radius:22px;animation:none"><div class="sg-svg" style="width:60px;height:60px"><svg viewBox="0 0 64 64"><use href="#sg-bag"/></svg></div></div>
+      <div style="font-family:var(--fh);font-size:24px;font-weight:900;letter-spacing:4px;color:#fff">SG STORE</div>
+      <div style="font-size:11px;color:var(--t3);letter-spacing:2px">VERSION 2.0 · BUILD 2026</div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">INFO</div>
+      <div class="set-row"><div class="set-ic cr"><i class="material-icons-round">workspace_premium</i></div><div class="set-inf"><div class="set-n">SuperGiant Games Studio</div><div class="set-s">Cairo · Egypt</div></div></div>
+      <div class="set-row" onclick="openTelegram()"><div class="set-ic cb"><i class="material-icons-round">send</i></div><div class="set-inf"><div class="set-n">Telegram</div><div class="set-s">@MCV_M</div></div><i class="material-icons-round arr">open_in_new</i></div>
+      <div class="set-row" onclick="window.open('https://supergiantgamesstudio.eg','_blank')"><div class="set-ic cy"><i class="material-icons-round">public</i></div><div class="set-inf"><div class="set-n">Website</div><div class="set-s">supergiantgamesstudio.eg</div></div><i class="material-icons-round arr">open_in_new</i></div>
+    </div>
+    <div class="set-sec">
+      <div class="set-lbl">LEGAL</div>
+      <div class="set-row" onclick="showLegal('privacy')"><div class="set-ic cp"><i class="material-icons-round">privacy_tip</i></div><div class="set-inf"><div class="set-n">Privacy Policy</div><div class="set-s">How we handle your data</div></div><i class="material-icons-round arr">chevron_right</i></div>
+      <div class="set-row" onclick="showLegal('terms')"><div class="set-ic cg"><i class="material-icons-round">description</i></div><div class="set-inf"><div class="set-n">Terms of Service</div><div class="set-s">Usage agreement</div></div><i class="material-icons-round arr">chevron_right</i></div>
+    </div>
+    <div style="text-align:center;padding:20px;font-size:11px;color:var(--t3);line-height:1.7">© 2026 SG Store · All rights reserved<br>Made with ❤️ in Egypt</div>
+    <div class="spacer-lg"></div>
+  </div>
+
+  <!-- DOWNLOADS -->
+  <div class="scr" id="s-dl">
+    <div class="subhdr">
+      <div class="bkbtn" onclick="goBack()"><i class="material-icons-round">arrow_back</i></div>
+      <div class="subhdr-t">DOWNLOADS</div>
+    </div>
+    <div id="dl-list"><div class="empty" style="padding:60px 20px"><i class="material-icons-round">file_download_off</i><p>No downloads yet</p><small>Start downloading apps to see them here</small></div></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div id="bnav">
+    <div class="ni on" id="n-home"    onclick="nav('n-home')">   <i class="material-icons-round">home</i>          <s>Home</s></div>
+    <div class="ni"    id="n-apps"    onclick="nav('n-apps')">   <i class="material-icons-round">apps</i>          <s>Apps</s></div>
+    <div class="ni"    id="n-mods"    onclick="nav('n-mods')">   <i class="material-icons-round">auto_fix_high</i> <s>Mods</s></div>
+    <div class="ni"    id="n-search"  onclick="nav('n-search')"> <i class="material-icons-round">search</i>        <s>Search</s></div>
+    <div class="ni"    id="n-profile" onclick="nav('n-profile')"><i class="material-icons-round">person</i>        <s>Profile</s></div>
+  </div>
+</div>
+
+<!-- DETAIL SHEET -->
+<div id="dov" onclick="closeDet()"></div>
+<div id="dsh">
+  <div class="handle"></div>
+  <div class="dban" id="db"></div>
+  <div class="dhead">
+    <div class="dapp-i" id="di"></div>
+    <div style="flex:1;min-width:0;padding-bottom:6px">
+      <div class="dapp-n" id="dn"></div>
+      <div class="dapp-d" id="dd"></div>
+    </div>
+  </div>
+  <div class="dtags" id="dtags"></div>
+  <div class="dmeta">
+    <div class="dm"><div class="dm-v" id="dm-r">—</div><div class="dm-l">Rating</div></div>
+    <div class="dm"><div class="dm-v" id="dm-d">—</div><div class="dm-l">Downloads</div></div>
+    <div class="dm"><div class="dm-v" id="dm-s">—</div><div class="dm-l">Size</div></div>
+    <div class="dm"><div class="dm-v" id="dm-v">—</div><div class="dm-l">Version</div></div>
+  </div>
+  <div class="dver" id="dver" style="display:none">
+    <button class="vbtn"     id="vb-off" onclick="swVer('off')">Official</button>
+    <button class="vbtn off" id="vb-mod" onclick="swVer('mod')">MOD Version</button>
+  </div>
+  <div class="dacts">
+    <button class="ddl" id="d-dl" onclick="startDl()"><i class="material-icons-round">file_download</i>DOWNLOAD</button>
+    <div class="dic" id="d-fav" onclick="togFav()"><i class="material-icons-round">favorite_border</i></div>
+    <div class="dic" onclick="shareApp()"><i class="material-icons-round">share</i></div>
+  </div>
+  <div class="dprog" id="dprog" style="display:none">
+    <div class="dpb"><div class="dpf" id="dpf"></div></div>
+    <div class="dpi"><span id="dpct">0%</span><span>Downloading...</span></div>
+  </div>
+  <div class="dlbl">Screenshots</div>
+  <div class="dscreen" id="dscreens">
+    <div class="dsc-img"><i class="material-icons-round">image</i></div>
+    <div class="dsc-img"><i class="material-icons-round">image</i></div>
+    <div class="dsc-img"><i class="material-icons-round">image</i></div>
+  </div>
+  <div class="dlbl">What's New</div>
+  <div class="dwhats"><div class="dwhats-box" id="dwhats">No release notes available.</div></div>
+  <div class="dlbl">About</div>
+  <div class="ddesc" id="ddesc"></div>
+</div>
+
+<div id="toast"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script>
+'use strict';
+
+/* ━━━ FIREBASE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+let auth, db, _firebaseInitError = null;
+try {
+  if (typeof firebase === 'undefined') {
+    throw new Error('Firebase SDK failed to load — check your internet connection.');
+  }
+  firebase.initializeApp({
+    apiKey:            "AIzaSyDyx9xGEDpmFOv63W_jQHEMdxbPFMVPAnw",
+    authDomain:        "sgstore-mcv.firebaseapp.com",
+    databaseURL:       "https://sgstore-mcv-default-rtdb.firebaseio.com",
+    projectId:         "sgstore-mcv",
+    storageBucket:     "sgstore-mcv.firebasestorage.app",
+    messagingSenderId: "811225332155",
+    appId:             "1:811225332155:web:f12c1923b41e10528a6c9e"
+  });
+  auth = firebase.auth();
+  db   = firebase.database();
+  /* keep user signed in across sessions */
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(() => {});
+} catch(e) {
+  _firebaseInitError = e;
+  console.error('Firebase init failed:', e);
+}
+
+/* ━━━ AUTH ERROR TRANSLATOR ━━━━━━━━━━━━━━━━ */
+function authMsg(code) {
+  const m = {
+    'auth/invalid-email'              : 'Email address is not valid.',
+    'auth/user-disabled'              : 'This account has been disabled.',
+    'auth/user-not-found'             : 'No account found with this email.',
+    'auth/wrong-password'             : 'Incorrect password.',
+    'auth/invalid-credential'         : 'Invalid email or password.',
+    'auth/invalid-login-credentials'  : 'Invalid email or password.',
+    'auth/email-already-in-use'       : 'This email is already registered.',
+    'auth/weak-password'              : 'Password is too weak (min 6 characters).',
+    'auth/network-request-failed'     : 'Network error. Check your internet connection.',
+    'auth/too-many-requests'          : 'Too many attempts. Please wait a moment.',
+    'auth/operation-not-allowed'      : 'Email/password sign-in is disabled in Firebase Console.',
+    'auth/internal-error'             : 'Server error. Please try again.'
+  };
+  return m[code] || ('Error: ' + code);
+}
+
+/* ━━━ STATE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+let curUser = null;
+let allApps = [];
+let allMods = [];
+let curItem = null;
+let aCat    = 'All';
+let mCat    = 'All';
+let selVer  = 'off';
+let prevScr = 's-home';
+let banIdx  = 0;
+let banTmr;
+
+const dls  = JSON.parse(localStorage.getItem('sg_dls')  || '[]');
+const favs = JSON.parse(localStorage.getItem('sg_favs') || '[]');
+
+/* ━━━ HELPERS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const fmtDl = n => !n?'0':n>=1e6?(n/1e6).toFixed(1)+'M+':n>=1e3?Math.floor(n/1e3)+'K+':String(n);
+const ibg   = c => ({Social:'rgba(255,30,30,.12)',Entertainment:'rgba(255,215,0,.1)',Games:'rgba(74,158,255,.1)',Tools:'rgba(0,255,156,.1)',Productivity:'rgba(255,140,0,.1)',Education:'rgba(160,100,255,.1)'}[c]||'rgba(255,255,255,.06)');
+const esc   = s => String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function rIcon(item) {
+  if (item.iconUrl) return `<img src="${esc(item.iconUrl)}" onerror="this.style.display='none'" alt="">`;
+  return esc(item.icon || '📱');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(t._tmr);
+  t._tmr = setTimeout(() => t.classList.remove('on'), 2600);
+}
+
+/* ━━━ SPLASH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+let _splashHidden = false;
+function hideSplash() {
+  if (_splashHidden) return;
+  _splashHidden = true;
+  const s = document.getElementById('spl');
+  if (s) s.classList.add('hide');
+}
+
+function bootApp() {
+  hideSplash();
+  const guest = localStorage.getItem('sg_guest');
+  try {
+    if (auth) {
+      auth.onAuthStateChanged(u => {
+        curUser = u;
+        if (u || guest) {
+          document.getElementById('auth').classList.add('hide');
+          if (u) updateProfile(u);
+          loadData();
+        }
+      }, () => {
+        if (guest) { document.getElementById('auth').classList.add('hide'); loadData(); }
+      });
+    } else {
+      if (guest) { document.getElementById('auth').classList.add('hide'); loadData(); }
+    }
+  } catch(e) {
+    console.warn('Auth state error', e);
+    if (guest) { document.getElementById('auth').classList.add('hide'); loadData(); }
+  }
+}
+
+setTimeout(bootApp, 2400);
+setTimeout(hideSplash, 4500);
+window.addEventListener('error', hideSplash);
+
+/* ━━━ AUTH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function swAuth(p) {
+  document.getElementById('box-login').classList.toggle('gone', p !== 'login');
+  document.getElementById('box-reg').classList.toggle('gone',   p !== 'reg');
+}
+
+function doLogin() {
+  const err = document.getElementById('l-err');
+  if (!auth) {
+    err.style.color = 'var(--r)';
+    err.textContent = 'Firebase not initialized: ' + ((_firebaseInitError && _firebaseInitError.message) || 'unknown error') + '. Tap "Continue as Guest" to browse.';
+    return;
+  }
+  const e = document.getElementById('l-em').value.trim();
+  const p = document.getElementById('l-pw').value;
+  err.style.color = 'var(--r)';
+  if (!e || !p) { err.textContent = 'Please fill all fields'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { err.textContent = 'Invalid email format'; return; }
+  err.style.color = 'var(--green)';
+  err.textContent = 'Signing in...';
+  auth.signInWithEmailAndPassword(e, p)
+    .then(r => {
+      curUser = r.user;
+      err.textContent = '';
+      document.getElementById('auth').classList.add('hide');
+      updateProfile(r.user);
+      loadData();
+      toast('Welcome back!');
+    })
+    .catch(er => {
+      err.style.color = 'var(--r)';
+      err.textContent = authMsg(er.code) || er.message || 'Sign in failed';
+      console.warn('Login error', er.code, er.message);
+    });
+}
+
+function doRegister() {
+  const err = document.getElementById('r-err');
+  if (!auth) {
+    err.style.color = 'var(--r)';
+    err.textContent = 'Firebase not initialized: ' + ((_firebaseInitError && _firebaseInitError.message) || 'unknown error') + '. Tap "Continue as Guest" to browse.';
+    return;
+  }
+  const n = document.getElementById('r-nm').value.trim();
+  const e = document.getElementById('r-em').value.trim();
+  const p = document.getElementById('r-pw').value;
+  err.style.color = 'var(--r)';
+  if (!n || !e || !p) { err.textContent = 'Please fill all fields'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { err.textContent = 'Invalid email format'; return; }
+  if (p.length < 6)   { err.textContent = 'Password must be at least 6 characters'; return; }
+  err.style.color = 'var(--green)';
+  err.textContent = 'Creating account...';
+  auth.createUserWithEmailAndPassword(e, p)
+    .then(r => {
+      if (db) {
+        db.ref('users/' + r.user.uid).set({ username: n, email: e, role: 'user', joinedAt: Date.now() })
+          .catch(dbErr => console.warn('Profile DB write failed (rules?):', dbErr.message));
+      }
+      r.user.updateProfile({ displayName: n }).catch(()=>{});
+      curUser = r.user;
+      err.textContent = '';
+      document.getElementById('auth').classList.add('hide');
+      updateProfile(r.user, n);
+      loadData();
+      toast('Welcome to SG Store, ' + n + '!');
+    })
+    .catch(er => {
+      err.style.color = 'var(--r)';
+      err.textContent = authMsg(er.code) || er.message || 'Registration failed';
+      console.warn('Register error', er.code, er.message);
+    });
+}
+
+function guestMode() {
+  localStorage.setItem('sg_guest', '1');
+  document.getElementById('auth').classList.add('hide');
+  loadData();
+}
+
+function doLogout() {
+  if (auth) auth.signOut().catch(() => {});
+  localStorage.removeItem('sg_guest');
+  location.reload();
+}
+
+function updateProfile(u, name) {
+  const n = name || u.displayName || u.email?.split('@')[0] || 'User';
+  document.getElementById('p-nm').textContent = n;
+  document.getElementById('p-em').textContent = u.email || '';
+  document.getElementById('st-dl').textContent = dls.length;
+  document.getElementById('st-fv').textContent = favs.length;
+  if (db && u.uid) {
+    db.ref('users/' + u.uid).once('value').then(s => {
+      const d = s.val();
+      if (!d) return;
+      document.getElementById('p-nm').textContent   = d.username || n;
+      document.getElementById('p-role').textContent = (d.role || 'user').toUpperCase();
+    }).catch(() => {});
+  }
+}
+
+/* ━━━ FORGOT PASSWORD ━━━━━━━━━━━━━━━━━━━━━━━ */
+function openFP() {
+  const div = document.createElement('div');
+  div.className = 'fp-wrap';
+  div.id = 'fp-wrap';
+  div.innerHTML = `
+    <div class="fp-box">
+      <div class="fp-title">RESET PASSWORD</div>
+      <div class="fp-sub">We'll send a reset link to your email</div>
+      <div class="afield" style="margin-bottom:10px"><i class="material-icons-round">email</i><input class="ainp" id="fp-em" type="email" placeholder="Your email address"></div>
+      <div class="fp-msg" id="fp-msg" style="color:var(--green)"></div>
+      <div class="fp-acts">
+        <button class="fp-cancel" onclick="document.getElementById('fp-wrap').remove()">Cancel</button>
+        <button class="fp-send" onclick="doReset()">Send Link</button>
+      </div>
+    </div>`;
+  document.body.appendChild(div);
+}
+
+function doReset() {
+  if (!auth) { toast('Login required'); return; }
+  const email = document.getElementById('fp-em')?.value?.trim();
+  if (!email) { toast('Enter your email'); return; }
+  auth.sendPasswordResetEmail(email)
+    .then(() => {
+      document.getElementById('fp-msg').textContent = 'Reset link sent! Check your inbox.';
+      setTimeout(() => document.getElementById('fp-wrap')?.remove(), 2500);
+    })
+    .catch(e => {
+      const m = document.getElementById('fp-msg');
+      if (m) { m.style.color = 'var(--r)'; m.textContent = e.message; }
+    });
+}
+
+/* ━━━ DATA LOAD WITH LOCAL CACHE ━━━━━━━━━━━━ */
+let _dataLoadedOnce = false;
+
+function renderAll() {
+  rTrend(); rApps(); rGames(); rNew(); rTop(); rEditor(); rTopMods(); rMods();
+}
+
+function loadFromCache() {
+  try {
+    const ca = JSON.parse(localStorage.getItem('sg_cache_apps') || '[]');
+    const cm = JSON.parse(localStorage.getItem('sg_cache_mods') || '[]');
+    if (Array.isArray(ca) && ca.length) allApps = ca;
+    if (Array.isArray(cm) && cm.length) allMods = cm;
+    if (allApps.length || allMods.length) { renderAll(); _dataLoadedOnce = true; }
+  } catch(e) {}
+}
+
+function loadData() {
+  loadFromCache();
+  if (db) {
+    db.ref('apps').on('value', snap => {
+      allApps = [];
+      snap.forEach(c => { const v = c.val(); if (v && v.published) allApps.push({ id: c.key, ...v }); });
+      try { localStorage.setItem('sg_cache_apps', JSON.stringify(allApps)); } catch(e) {}
+      rTrend(); rApps(); rGames(); rNew(); rTop(); rEditor();
+      _dataLoadedOnce = true;
+    }, () => { if (!_dataLoadedOnce) { rTrend(); rApps(); rGames(); rNew(); rTop(); rEditor(); } });
+
+    db.ref('mods').on('value', snap => {
+      allMods = [];
+      snap.forEach(c => { const v = c.val(); if (v && v.published) allMods.push({ id: c.key, ...v }); });
+      try { localStorage.setItem('sg_cache_mods', JSON.stringify(allMods)); } catch(e) {}
+      rTopMods(); rMods(); rTop();
+    }, () => { if (!_dataLoadedOnce) { rTopMods(); rMods(); rTop(); } });
+
+    db.ref('settings/maintenance').once('value').then(s => {
+      if (s.val() === true) showMaintenance();
+    }).catch(() => {});
+  } else {
+    if (!_dataLoadedOnce) renderAll();
+  }
+}
+
+function showMaintenance() {
+  document.body.insertAdjacentHTML('beforeend',
+    `<div class="maint"><i class="material-icons-round">construction</i>
+     <div class="maint-t">MAINTENANCE</div>
+     <div class="maint-s">SG Store is under maintenance. We'll be back very soon!</div>
+     <div style="font-size:11px;color:var(--t3)">supergiantgamesstudio.eg</div></div>`);
+}
+
+/* ━━━ RENDER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function rTrend() {
+  const list = allApps.filter(a => a.trending).slice(0, 12);
+  const el = document.getElementById('tr-row');
+  if (!list.length) {
+    el.innerHTML = `<div style="color:var(--t3);font-size:12px;padding:10px 0">Apps coming soon from admin</div>`;
+    return;
+  }
+  el.innerHTML = list.map(a => `
+    <div class="ac" onclick="openDet('${esc(a.id)}','app')">
+      <div class="ac-iw">
+        <div class="ac-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+        <div class="pip pip-g">HOT</div>
+      </div>
+      <div class="ac-n">${esc(a.name)}</div>
+      <div class="ac-rt">★ ${(+a.rating||4.5).toFixed(1)}</div>
+    </div>`).join('');
+}
+
+function rTopMods() {
+  const list = allMods.filter(m => m.trending).slice(0, 10);
+  const el = document.getElementById('mod-row');
+  if (!list.length) {
+    el.innerHTML = `<div style="color:var(--t3);font-size:12px;padding:10px 0">Mods coming soon from admin</div>`;
+    return;
+  }
+  el.innerHTML = list.map(m => `
+    <div class="ac" onclick="openDet('${esc(m.id)}','mod')">
+      <div class="ac-iw">
+        <div class="ac-i" style="background:${ibg(m.category)}">${rIcon(m)}</div>
+        <div class="pip pip-r">MOD</div>
+      </div>
+      <div class="ac-n">${esc(m.name)}</div>
+      <div class="ac-d">${fmtDl(m.downloads)}</div>
+    </div>`).join('');
+}
+
+function rGames() {
+  const list = allApps.filter(a => a.category === 'Games').slice(0, 10);
+  const el = document.getElementById('game-row');
+  if (!list.length) {
+    el.innerHTML = `<div style="color:var(--t3);font-size:12px;padding:10px 0">No games yet</div>`;
+    return;
+  }
+  el.innerHTML = list.map(a => `
+    <div class="ac" onclick="openDet('${esc(a.id)}','app')">
+      <div class="ac-iw">
+        <div class="ac-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+        <div class="pip pip-b">GAME</div>
+      </div>
+      <div class="ac-n">${esc(a.name)}</div>
+      <div class="ac-rt">★ ${(+a.rating||4.5).toFixed(1)}</div>
+    </div>`).join('');
+}
+
+function rNew() {
+  const list = allApps.slice().sort((a,b) => (b.createdAt||0) - (a.createdAt||0)).slice(0, 5);
+  const el = document.getElementById('new-list');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty"><i class="material-icons-round">new_releases</i><p>No new releases yet</p></div>`;
+    return;
+  }
+  el.innerHTML = list.map(a => `
+    <div class="li" onclick="openDet('${esc(a.id)}','app')">
+      <div class="li-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+      <div class="li-inf">
+        <div class="li-n">${esc(a.name)}</div>
+        <div class="li-m">${esc(a.category)} · ${esc(a.developer || 'SG Store')}</div>
+        <div class="li-sub">
+          <span class="li-rt">★ ${(+a.rating||4.5).toFixed(1)}</span>
+          <span class="li-dl">${fmtDl(a.downloads)} downloads</span>
+        </div>
+      </div>
+      <div class="li-act">GET</div>
+    </div>`).join('');
+}
+
+function rTop() {
+  const all = [...allApps.map(a=>({...a,_t:'app'})), ...allMods.map(m=>({...m,_t:'mod'}))]
+    .sort((a,b) => (b.downloads||0) - (a.downloads||0)).slice(0, 10);
+  const el = document.getElementById('top-list');
+  if (!all.length) {
+    el.innerHTML = `<div class="empty"><i class="material-icons-round">leaderboard</i><p>No top charts yet</p></div>`;
+    return;
+  }
+  el.innerHTML = all.map((a, i) => {
+    const rcl = i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    return `
+    <div class="li" onclick="openDet('${esc(a.id)}','${a._t}')">
+      <div class="li-rank ${rcl}">${i+1}</div>
+      <div class="li-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+      <div class="li-inf">
+        <div class="li-n">${esc(a.name)}</div>
+        <div class="li-m">${esc(a.category||'')}${a._t==='mod'?' · MOD':''}</div>
+        <div class="li-sub">
+          <span class="li-rt">★ ${(+a.rating||4.5).toFixed(1)}</span>
+          <span class="li-dl">${fmtDl(a.downloads)}</span>
+        </div>
+      </div>
+      <div class="li-act">${a._t==='mod'?'MOD':'GET'}</div>
+    </div>`;
+  }).join('');
+}
+
+function rEditor() {
+  const list = allApps.filter(a => a.featured).slice(0, 6);
+  const el = document.getElementById('ed-row');
+  if (!list.length) {
+    /* fallback: top rated apps */
+    const fallback = allApps.slice().sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,6);
+    if (!fallback.length) {
+      el.innerHTML = `<div style="color:var(--t3);font-size:12px;padding:10px 14px">Editor's picks coming soon</div>`;
+      return;
+    }
+    renderEditorList(fallback, el);
+    return;
+  }
+  renderEditorList(list, el);
+}
+
+function renderEditorList(list, el) {
+  el.innerHTML = list.map(a => `
+    <div class="epick" onclick="openDet('${esc(a.id)}','app')">
+      <div class="epick-cover" style="background:${a.bannerUrl?`url('${esc(a.bannerUrl)}') center/cover`:`linear-gradient(135deg,#180000,#2e0000)`}">
+        ${!a.bannerUrl?`<span style="font-size:48px;position:relative;z-index:1">${esc(a.icon||'📱')}</span>`:''}
+        <div class="epick-tag">EDITOR'S PICK</div>
+      </div>
+      <div class="epick-body">
+        <div class="epick-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+        <div class="epick-inf">
+          <div class="epick-n">${esc(a.name)}</div>
+          <div class="epick-m"><span class="gold">★ ${(+a.rating||4.5).toFixed(1)}</span> · ${fmtDl(a.downloads)}</div>
+        </div>
+        <div class="epick-dl">GET</div>
+      </div>
+    </div>`).join('');
+}
+
+function rApps() {
+  const q    = (document.getElementById('aq')?.value || '').toLowerCase();
+  const list = allApps.filter(a => (aCat === 'All' || a.category === aCat) && (!q || a.name.toLowerCase().includes(q)));
+  const el   = document.getElementById('apps-grid');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty"><i class="material-icons-round">${q ? 'search_off' : 'apps'}</i><p>${q ? 'No results found' : 'No apps yet'}</p><small>${q?'Try a different keyword':'Admin will add apps soon'}</small></div>`;
+    return;
+  }
+  el.innerHTML = list.map(a => `
+    <div class="gi" onclick="openDet('${esc(a.id)}','app')">
+      <div class="gi-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+      <div class="gi-n">${esc(a.name)}</div>
+      <div class="gi-r">★ ${(+a.rating || 4.5).toFixed(1)}</div>
+    </div>`).join('');
+}
+
+function rMods() {
+  const q    = (document.getElementById('mq')?.value || '').toLowerCase();
+  const list = allMods.filter(m => (mCat === 'All' || m.subType === mCat) && (!q || m.name.toLowerCase().includes(q)));
+  const el   = document.getElementById('mods-grid');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty"><i class="material-icons-round">${q ? 'search_off' : 'auto_fix_high'}</i><p>${q ? 'No results found' : 'No mods yet'}</p><small>${q?'Try a different keyword':'Admin will add mods soon'}</small></div>`;
+    return;
+  }
+  el.innerHTML = list.map(m => `
+    <div class="gi" onclick="openDet('${esc(m.id)}','mod')">
+      <div class="gi-i" style="background:${ibg(m.category)}">${rIcon(m)}<div class="gi-mpip">MOD</div></div>
+      <div class="gi-n">${esc(m.name)}</div>
+      <div class="gi-r">★ ${(+m.rating || 4.5).toFixed(1)}</div>
+    </div>`).join('');
+}
+
+/* ━━━ FILTERS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function sAC(el, cat) { document.querySelectorAll('#ac-chips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); aCat = cat; rApps(); }
+function sMC(el, cat) { document.querySelectorAll('#mc-chips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); mCat = cat; rMods(); }
+function clr(id, fn)  { document.getElementById(id).value = ''; fn(); }
+
+function goFilter(type, cat) {
+  if (type === 'app') {
+    aCat = cat;
+    document.querySelectorAll('#ac-chips .chip').forEach((c, i) => c.classList.toggle('on', ['All','Social','Tools','Productivity','Entertainment','Education','Games'][i] === cat));
+    nav('n-apps');
+  } else {
+    mCat = cat;
+    document.querySelectorAll('#mc-chips .chip').forEach((c, i) => c.classList.toggle('on', ['All','Mod Apps','Mod Games','Premium','Tweaked'][i] === cat));
+    nav('n-mods');
+  }
+}
+
+/* ━━━ SEARCH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function doSearch() {
+  const q  = document.getElementById('sq').value.trim().toLowerCase();
+  const si = document.getElementById('si');
+  const sr = document.getElementById('sr');
+  const se = document.getElementById('se');
+  if (!q) { si.style.display = ''; sr.style.display = se.style.display = 'none'; return; }
+  si.style.display = 'none';
+  const res = [...allApps.map(a => ({...a, _t:'app'})), ...allMods.map(m => ({...m, _t:'mod'}))].filter(a => a.name?.toLowerCase().includes(q));
+  if (!res.length) { se.style.display = ''; sr.style.display = 'none'; return; }
+  se.style.display = 'none'; sr.style.display = '';
+  sr.innerHTML = `<div style="padding:8px 14px;font-size:11px;color:var(--t3);font-weight:600">${res.length} result${res.length>1?'s':''} for "${esc(q)}"</div>` +
+    res.map(a => `
+      <div class="li" onclick="openDet('${esc(a.id)}','${a._t}')">
+        <div class="li-i" style="background:${ibg(a.category)}">${rIcon(a)}</div>
+        <div class="li-inf">
+          <div class="li-n">${esc(a.name)}</div>
+          <div class="li-m">${esc(a.category)}${a.subType ? ' · ' + esc(a.subType) : ''}</div>
+          <div class="li-sub"><span class="li-rt">★ ${(+a.rating||4.5).toFixed(1)}</span><span class="li-dl">${fmtDl(a.downloads)}</span></div>
+        </div>
+        <div class="li-act">${a._t==='mod'?'MOD':'GET'}</div>
+      </div>`).join('');
+}
+
+function clrSearch() { document.getElementById('sq').value = ''; doSearch(); }
+
+/* ━━━ DETAIL SHEET ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function openDet(id, type) {
+  try {
+    const src  = type === 'mod' ? allMods : allApps;
+    const item = src.find(a => a.id === id);
+    if (!item) { toast('Item not found'); return; }
+    curItem = { ...item, _t: type };
+    selVer  = 'off';
+
+    const ban = document.getElementById('db');
+    if (item.bannerUrl) {
+      ban.innerHTML = `<img src="${esc(item.bannerUrl)}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"><div class="dban-ov"></div>`;
+    } else {
+      ban.style.background = ibg(item.category);
+      ban.innerHTML = `<span style="font-size:72px;position:relative;z-index:1">${item.icon||'📱'}</span><div class="dban-ov"></div>`;
+    }
+
+    const ico = document.getElementById('di');
+    ico.style.background = ibg(item.category);
+    ico.innerHTML = rIcon(item);
+
+    document.getElementById('dn').textContent    = item.name || '';
+    document.getElementById('dd').textContent    = item.developer || 'SG Store';
+    document.getElementById('dm-r').textContent  = '★ ' + (+item.rating || 4.5).toFixed(1);
+    document.getElementById('dm-d').textContent  = fmtDl(item.downloads);
+    document.getElementById('dm-s').textContent  = item.size || '—';
+    document.getElementById('dm-v').textContent  = item.version || '1.0';
+    document.getElementById('ddesc').textContent = item.description || 'No description available.';
+    document.getElementById('dwhats').textContent = item.whatsNew || 'No release notes available.';
+
+    let tags = `<span class="dtag ${type==='mod'?'dtag-mod':'dtag-app'}">${type==='mod'?(item.subType||'MOD'):'APP'}</span>` +
+               `<span class="dtag dtag-cat">${esc(item.category||'')}</span>`;
+    if (item.featured) tags += `<span class="dtag dtag-feat">FEATURED</span>`;
+    document.getElementById('dtags').innerHTML = tags;
+
+    /* Screenshots */
+    const ss = document.getElementById('dscreens');
+    if (item.screenshots && Array.isArray(item.screenshots) && item.screenshots.length) {
+      ss.innerHTML = item.screenshots.map(s => `<img src="${esc(s)}" class="dsc-img" style="object-fit:cover" onerror="this.style.display='none'">`).join('');
+    } else {
+      ss.innerHTML = `<div class="dsc-img"><i class="material-icons-round">phone_android</i></div><div class="dsc-img"><i class="material-icons-round">phone_android</i></div><div class="dsc-img"><i class="material-icons-round">phone_android</i></div>`;
+    }
+
+    const vt = document.getElementById('dver');
+    vt.style.display = (type === 'mod' && item.modVersion) ? 'flex' : 'none';
+    document.getElementById('vb-off').classList.remove('off');
+    document.getElementById('vb-mod').classList.add('off');
+
+    const isFav = favs.includes(id);
+    const favEl = document.getElementById('d-fav');
+    favEl.classList.toggle('fav-on', isFav);
+    favEl.querySelector('i').textContent = isFav ? 'favorite' : 'favorite_border';
+
+    const isDone = dls.find(d => d.id === id);
+    const btn    = document.getElementById('d-dl');
+    btn.disabled = false;
+    if (isDone) {
+      btn.innerHTML  = `<i class="material-icons-round">check_circle</i>DOWNLOADED`;
+      btn.style.cssText = 'flex:1;padding:14px;border-radius:13px;border:1px solid var(--green);font-size:15px;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.6px;background:rgba(0,255,156,.06);cursor:pointer;';
+    } else {
+      btn.innerHTML  = `<i class="material-icons-round">file_download</i>DOWNLOAD`;
+      btn.style.cssText = 'flex:1;padding:14px;border-radius:13px;background:var(--r);border:none;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;transition:.2s;letter-spacing:.6px;cursor:pointer;box-shadow:0 6px 18px rgba(255,30,30,.25);';
+    }
+    document.getElementById('dprog').style.display = 'none';
+    document.getElementById('dpf').style.width     = '0';
+
+    document.getElementById('dov').classList.add('on');
+    document.getElementById('dsh').classList.add('on');
+  } catch(e) { console.error('openDet error', e); }
+}
+
+function closeDet() {
+  document.getElementById('dov').classList.remove('on');
+  document.getElementById('dsh').classList.remove('on');
+}
+
+function swVer(v) {
+  selVer = v;
+  document.getElementById('vb-off').classList.toggle('off', v !== 'off');
+  document.getElementById('vb-mod').classList.toggle('off', v !== 'mod');
+  if (!curItem) return;
+  document.getElementById('dm-v').textContent = v === 'mod' && curItem.modVersion ? curItem.modVersion : (curItem.version || '1.0');
+}
+
+function startDl() {
+  if (!curItem) return;
+  if (dls.find(d => d.id === curItem.id)) { toast('Already downloaded!'); return; }
+
+  const btn = document.getElementById('d-dl');
+  const pw  = document.getElementById('dprog');
+  const pf  = document.getElementById('dpf');
+  const pp  = document.getElementById('dpct');
+
+  btn.innerHTML = `<i class="material-icons-round">hourglass_top</i>DOWNLOADING...`;
+  btn.style.background = 'var(--bg3)'; btn.style.color = 'var(--t2)'; btn.style.boxShadow = 'none';
+  btn.disabled = true;
+  pw.style.display = 'block';
+
+  let pct = 0;
+  const iv = setInterval(() => {
+    pct += Math.random() * 12 + 2;
+    if (pct >= 100) { pct = 100; clearInterval(iv); onDone(); }
+    pf.style.width = Math.floor(pct) + '%';
+    pp.textContent  = Math.floor(pct) + '%';
+  }, 220);
+
+  if (db) {
+    try {
+      const col = curItem._t === 'mod' ? 'mods' : 'apps';
+      db.ref(`${col}/${curItem.id}/downloads`).transaction(n => (n || 0) + 1).catch(() => {});
+      if (curUser) db.ref(`users/${curUser.uid}/downloads/${curItem.id}`).set({ name: curItem.name, at: Date.now() }).catch(() => {});
+    } catch(e) {}
+  }
+}
+
+function onDone() {
+  const item = curItem;
+  dls.push({ id: item.id, name: item.name, icon: item.icon, iconUrl: item.iconUrl, type: item._t, at: Date.now() });
+  try { localStorage.setItem('sg_dls', JSON.stringify(dls)); } catch(e) {}
+
+  document.getElementById('st-dl').textContent = dls.length;
+  const badge = document.getElementById('dl-badge');
+  badge.style.display = 'flex'; badge.textContent = dls.length;
+
+  const btn = document.getElementById('d-dl');
+  btn.innerHTML  = `<i class="material-icons-round">check_circle</i>DOWNLOADED`;
+  btn.style.cssText = 'flex:1;padding:14px;border-radius:13px;border:1px solid var(--green);font-size:15px;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.6px;background:rgba(0,255,156,.06);cursor:pointer;';
+  btn.disabled = false;
+
+  rDlList();
+  toast(item.name + ' downloaded!');
+
+  /* If item has direct APK URL, open it */
+  if (item.apkUrl || item.officialApkUrl || item.modApkUrl) {
+    const url = selVer === 'mod' ? (item.modApkUrl || item.apkUrl) : (item.officialApkUrl || item.apkUrl || item.modApkUrl);
+    if (url) setTimeout(() => window.open(url, '_blank'), 600);
+  }
+}
+
+function togFav() {
+  if (!curItem) return;
+  const id  = curItem.id;
+  const idx = favs.indexOf(id);
+  const btn = document.getElementById('d-fav');
+  if (idx >= 0) {
+    favs.splice(idx, 1);
+    btn.classList.remove('fav-on');
+    btn.querySelector('i').textContent = 'favorite_border';
+    toast('Removed from favorites');
+  } else {
+    favs.push(id);
+    btn.classList.add('fav-on');
+    btn.querySelector('i').textContent = 'favorite';
+    toast('Added to favorites');
+    if (db && curUser) db.ref(`users/${curUser.uid}/favorites/${id}`).set(true).catch(() => {});
+  }
+  try { localStorage.setItem('sg_favs', JSON.stringify(favs)); } catch(e) {}
+  document.getElementById('st-fv').textContent = favs.length;
+}
+
+function shareApp() {
+  if (!curItem) return;
+  const txt = `Check out ${curItem.name} on SG Store!\nsupergiantgamesstudio.eg`;
+  try {
+    if (navigator.share) { navigator.share({ title: curItem.name, text: txt }); return; }
+    if (navigator.clipboard) { navigator.clipboard.writeText(txt); toast('Link copied!'); }
+  } catch(e) { toast('Share failed'); }
+}
+
+/* ━━━ DOWNLOADS LIST ━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function rDlList() {
+  const el = document.getElementById('dl-list');
+  if (!dls.length) {
+    el.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">file_download_off</i><p>No downloads yet</p><small>Start downloading apps to see them here</small></div>`;
+    return;
+  }
+  el.innerHTML = [...dls].reverse().map(d => `
+    <div class="dli">
+      <div class="dli-i">${d.iconUrl ? `<img src="${esc(d.iconUrl)}" onerror="this.style.display='none'">` : esc(d.icon || '📱')}</div>
+      <div class="dli-inf">
+        <div class="dli-n">${esc(d.name)}</div>
+        <div class="dli-pb"><div class="dli-pf"></div></div>
+        <div class="dli-s">${d.type === 'mod' ? 'MOD' : 'APP'} &bull; ${new Date(d.at).toLocaleDateString()}</div>
+      </div>
+      <div class="dtag-done">DONE</div>
+    </div>`).join('');
+}
+
+/* ━━━ BANNER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function goBan(i) {
+  document.querySelectorAll('.bslide').forEach((s, j) => s.classList.toggle('on', j === i));
+  document.querySelectorAll('#bdots .bd').forEach((d, j) => d.classList.toggle('on', j === i));
+  banIdx = i;
+}
+function startBanner() {
+  clearInterval(banTmr);
+  banTmr = setInterval(() => goBan((banIdx + 1) % 4), 3800);
+}
+
+/* ━━━ NAV ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const navMap = { 'n-home':'s-home', 'n-apps':'s-apps', 'n-mods':'s-mods', 'n-search':'s-search', 'n-profile':'s-profile' };
+
+function nav(nb) {
+  document.querySelectorAll('.ni').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  document.getElementById(nb)?.classList.add('on');
+  document.getElementById(navMap[nb])?.classList.add('on');
+  document.getElementById('bnav').style.display = 'flex';
+  if (nb === 'n-profile') {
+    document.getElementById('st-dl').textContent = dls.length;
+    document.getElementById('st-fv').textContent = favs.length;
+  }
+  if (nb === 'n-search') setTimeout(() => document.getElementById('sq')?.focus(), 100);
+  document.querySelector('.scr.on')?.scrollTo(0, 0);
+}
+
+function goTo(scrId) {
+  const cur = document.querySelector('.scr.on');
+  prevScr = cur ? cur.id : 's-home';
+  document.querySelectorAll('.ni').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  document.getElementById(scrId)?.classList.add('on');
+  document.getElementById('bnav').style.display = 'none';
+  if (scrId === 's-dl')       rDlList();
+  if (scrId === 's-fav')      rFavList();
+  if (scrId === 's-notif')    rNotifList();
+  if (scrId === 's-settings') openSettings();
+}
+
+function goBack() {
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  document.getElementById(prevScr || 's-home')?.classList.add('on');
+  const nb = Object.keys(navMap).find(k => navMap[k] === (prevScr || 's-home'));
+  if (nb) document.getElementById(nb)?.classList.add('on');
+  document.getElementById('bnav').style.display = 'flex';
+}
+
+/* ━━━ SETTINGS / PREFERENCES ━━━━━━━━━━━━━━━━ */
+const PREFS = JSON.parse(localStorage.getItem('sg_prefs') || '{"notif":true,"auto":true,"wifi":false,"lang":"en"}');
+
+function setPref(k, v) {
+  PREFS[k] = v;
+  localStorage.setItem('sg_prefs', JSON.stringify(PREFS));
+  if (k === 'auto') { clearInterval(banTmr); if (v) startBanner(); }
+  toast('Saved');
+}
+
+function setLang(l) {
+  PREFS.lang = l;
+  localStorage.setItem('sg_prefs', JSON.stringify(PREFS));
+  document.getElementById('lang-en').style.display = l==='en' ? 'block' : 'none';
+  document.getElementById('lang-ar').style.display = l==='ar' ? 'block' : 'none';
+  document.documentElement.dir = l==='ar' ? 'rtl' : 'ltr';
+  toast(l==='ar' ? 'تم تغيير اللغة' : 'Language changed');
+}
+
+function openSettings() {
+  document.getElementById('set-notif').checked = !!PREFS.notif;
+  document.getElementById('set-auto').checked  = !!PREFS.auto;
+  document.getElementById('set-wifi').checked  = !!PREFS.wifi;
+  document.getElementById('lang-en').style.display = PREFS.lang==='en' ? 'block' : 'none';
+  document.getElementById('lang-ar').style.display = PREFS.lang==='ar' ? 'block' : 'none';
+  let bytes = 0;
+  try { for (const k in localStorage) if (k.startsWith('sg_')) bytes += (localStorage[k]||'').length; } catch(e) {}
+  document.getElementById('cache-sz').textContent = (bytes/1024).toFixed(1) + ' KB cached';
+  document.getElementById('dl-count').textContent = dls.length + ' downloads';
+  if (curUser) {
+    document.getElementById('set-acct').textContent = curUser.displayName || curUser.email?.split('@')[0] || 'Account';
+    document.getElementById('set-acct-em').textContent = curUser.email || '';
+  } else {
+    document.getElementById('set-acct').textContent = 'Guest User';
+    document.getElementById('set-acct-em').textContent = 'Sign in for full features';
+  }
+}
+
+function clearCache() {
+  ['sg_cache_apps','sg_cache_mods'].forEach(k => localStorage.removeItem(k));
+  toast('Cache cleared');
+  openSettings();
+}
+
+function clearDownloads() {
+  dls.length = 0;
+  localStorage.setItem('sg_dls', JSON.stringify(dls));
+  toast('Download history cleared');
+  openSettings();
+  rDlList();
+}
+
+function openTelegram() {
+  window.open('https://t.me/MCV_M', '_blank');
+}
+
+function showLegal(kind) {
+  const t = kind==='privacy'
+    ? `<h3>Privacy Policy</h3>
+       <p>SG Store respects your privacy. We collect only the data needed to provide our service: account email, username, download history, and favorites.</p>
+       <p>Your data is stored securely on Firebase and is never sold to third parties.</p>
+       <p>You may delete your account at any time by contacting support.</p>`
+    : `<h3>Terms of Service</h3>
+       <p>By using SG Store, you agree to use the platform lawfully and to respect the intellectual property of app developers.</p>
+       <p>Modified versions (MODs) are provided for educational purposes only. SG Store is not responsible for any misuse.</p>
+       <p>We reserve the right to remove any content that violates these terms.</p>`;
+  const div = document.createElement('div');
+  div.className = 'legal';
+  div.innerHTML = `<div class="legal-box">${t}<button class="legal-x" onclick="this.closest('.legal').remove()">Close</button></div>`;
+  div.onclick = e => { if (e.target === div) div.remove(); };
+  document.body.appendChild(div);
+}
+
+/* ━━━ NOTIFICATIONS LIST ━━━━━━━━━━━━━━━━━━━━ */
+function rNotifList() {
+  const wrap = document.getElementById('notif-list');
+  if (!db) {
+    wrap.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">cloud_off</i><p>No connection</p></div>`;
+    return;
+  }
+  wrap.innerHTML = `<div style="text-align:center;padding:30px;color:var(--t3);font-size:12px">Loading...</div>`;
+  db.ref('notifications').limitToLast(50).once('value').then(snap => {
+    const arr = [];
+    snap.forEach(c => arr.push({ id:c.key, ...c.val() }));
+    arr.reverse();
+    if (!arr.length) {
+      wrap.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">notifications_off</i><p>No notifications yet</p><small>You'll see updates and offers here</small></div>`;
+      return;
+    }
+    const seen = JSON.parse(localStorage.getItem('sg_notif_seen') || '[]');
+    wrap.innerHTML = arr.map(n => `
+      <div class="notif-i ${seen.includes(n.id)?'':'unread'}">
+        <div class="notif-ic"><i class="material-icons-round">${esc(n.icon||'campaign')}</i></div>
+        <div style="flex:1;min-width:0">
+          <div class="notif-ti">${esc(n.title||'Notification')}</div>
+          <div class="notif-bd">${esc(n.body||'')}</div>
+          <div class="notif-tm">${n.createdAt ? new Date(n.createdAt).toLocaleString() : ''}</div>
+        </div>
+      </div>`).join('');
+    const allIds = arr.map(n => n.id);
+    localStorage.setItem('sg_notif_seen', JSON.stringify(allIds));
+  }).catch(() => {
+    wrap.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">error_outline</i><p>Couldn't load notifications</p></div>`;
+  });
+}
+
+/* ━━━ FAVORITES LIST ━━━━━━━━━━━━━━━━━━━━━━━━ */
+function rFavList() {
+  const wrap = document.getElementById('fav-list');
+  if (!favs.length) {
+    wrap.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">favorite_border</i><p>No favorites yet</p><small>Tap the heart icon on any app</small></div>`;
+    return;
+  }
+  const all = [...allApps.map(a=>({...a,_t:'app'})), ...allMods.map(m=>({...m,_t:'mod'}))];
+  const list = favs.map(fid => all.find(x => x.id === fid)).filter(Boolean);
+  if (!list.length) {
+    wrap.innerHTML = `<div class="empty" style="padding:60px 20px"><i class="material-icons-round">hourglass_empty</i><p>Loading favorites...</p></div>`;
+    return;
+  }
+  wrap.innerHTML = list.map(it => `
+    <div class="fav-i" onclick="openDet('${esc(it.id)}','${it._t}')">
+      <div class="fav-ic" style="background:${ibg(it.category)}">${rIcon(it)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13.5px;font-weight:700;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
+        <div style="font-size:10.5px;color:var(--t3);margin-top:2px">${esc(it.developer||'')}${it.size?' · '+esc(it.size):''}</div>
+      </div>
+      <div class="fav-rm" onclick="event.stopPropagation();removeFav('${esc(it.id)}')"><i class="material-icons-round">close</i></div>
+    </div>`).join('');
+}
+
+function removeFav(id) {
+  const i = favs.indexOf(id);
+  if (i >= 0) { favs.splice(i,1); localStorage.setItem('sg_favs', JSON.stringify(favs)); rFavList(); toast('Removed from favorites'); }
+}
+
+/* ━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+if (PREFS.lang === 'ar') document.documentElement.dir = 'rtl';
+startBanner();
+
+if (dls.length) {
+  const badge = document.getElementById('dl-badge');
+  if (badge) { badge.style.display = 'flex'; badge.textContent = dls.length; }
+}
+</script>
+</body>
+</html>
