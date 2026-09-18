@@ -1,0 +1,6 @@
+{
+  "name": "فريق تطوير منصة حِصّتي",
+  "description": "الصفحة التعريفية الرسمية بفريق تطوير منصة حِصّتي مع لوحة إدارة متكاملة للمحتوى والمطورين",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

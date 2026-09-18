@@ -1,0 +1,58 @@
+{
+  "developers": [
+    {
+      "id": "dev-1",
+      "name": "يوسف عماد الدين",
+      "role":" ",
+      "bio": "مهندس برمجيات متخصص في بناء المنظومات التعليمية والحلول الرقمية السحابية. قاد تصميم البنية التحتية لمنصة حِصّتي ونظام الحضور الذكي بالـ QR.",
+      "quote": "أؤمن أن البرمجة ليست مجرد كتابة كود، بل بناء تجارب تصنع فرقًا حقيقيًا وتمكّن الأجيال القادمة.",
+      "image_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+      "github_url": "https://github.com",
+      "linkedin_url": "https://linkedin.com",
+      "facebook_url": "",
+      "instagram_url": "",
+      "email": "myyousef000@gmail.com",
+      "website_url": "https://hassty.vercel.app",
+      "sort_order": 1,
+      "is_visible": true,
+      "created_at": "2026-09-12T19:07:13.081Z",
+      "updated_at": "2026-09-12T19:07:13.081Z"
+    },
+    {
+      "id": "dev-2",
+      "name": "محمود علي ",
+      "role": "",
+      "bio": "مطور واجهات مستخدم وتطبيقات تفاعلية، يركز على معايير الأداء والسرعة وسهولة الاستخدام لبناء تجربة تليق بطلاب وأولياء أمور منصة حِصّتي.",
+      "quote": "البساطة والسرعة هما جوهر كل منتج تقني ناجح يُلهم مستخدميه ويجعل المهام المعقدة سهلة ومباشرة.",
+      "image_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+      "github_url": "",
+      "linkedin_url": "",
+      "facebook_url": "",
+      "instagram_url": "",
+      "email": "team@hassty.com",
+      "website_url": "https://hassty.site",
+      "sort_order": 2,
+      "is_visible": true,
+      "created_at": "2026-09-12T19:07:13.081Z",
+      "updated_at": "2026-09-12T19:07:13.081Z"
+    }
+  ],
+  "site_settings": {
+    "id": "settings_main",
+    "site_name": "منصة حِصّتي",
+    "page_title": "فريق تطوير منصة حِصّتي",
+    "page_subtitle": "نحن الفريق المسؤول عن بناء وتطوير منصة حِصّتي، ونعمل باستمرار على تقديم تجربة تعليمية رقمية أكثر سهولة واحترافية.",
+    "hero_badge": "فريق العمل والابتكار التقني",
+    "logo_url": "/hassty-logo.svg",
+    "favicon_url": "/hassty-logo.svg",
+    "footer_text": "صُنعت بشغف لتطوير تجربة التعليم",
+    "copyright_text": "جميع الحقوق محفوظة © منصة حِصّتي",
+    "contact_email": "hasstysupport@gmail.com",
+    "contact_phone": ," "
+    "github_org_url":" "
+    "meta_description": "الصفحة التعريفية الرسمية بفريق تطوير وبناء منصة حِصّتي، المنصة التعليمية الذكية لحجز المدرسين وتسجيل حضور QR.",
+    "meta_keywords": "فريق تطوير حصتي, منصة حصتي, مطوري حصتي, Hassty team",
+    "canonical_url": "https://hassty.vercel.app/team",
+    "updated_at": "2026-09-12T19:07:13.081Z"
+  }
+}

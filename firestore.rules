@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Developers collection: public read, write for managing team
+    match /developers/{developerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Site settings: public read, write for updating site configurations
+    match /site_settings/{settingsId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

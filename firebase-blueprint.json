@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "developers": {
+      "title": "Developers",
+      "description": "Team developers and contributors for Hassty platform",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the developer" },
+        "role": { "type": "string", "description": "Job title or role in Hassty" },
+        "bio": { "type": "string", "description": "Short bio or overview" },
+        "quote": { "type": "string", "description": "Personal quote or motto" },
+        "image_url": { "type": "string", "description": "Avatar or profile picture URL" },
+        "github_url": { "type": "string", "description": "GitHub profile link" },
+        "linkedin_url": { "type": "string", "description": "LinkedIn profile link" },
+        "facebook_url": { "type": "string", "description": "Facebook profile link" },
+        "instagram_url": { "type": "string", "description": "Instagram profile link" },
+        "email": { "type": "string", "description": "Official email address" },
+        "website_url": { "type": "string", "description": "Personal portfolio or link" },
+        "sort_order": { "type": "number", "description": "Sort order index" },
+        "is_visible": { "type": "boolean", "description": "Whether the developer is visible publicly" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "role", "image_url", "is_visible"]
+    },
+    "site_settings": {
+      "title": "Site Settings",
+      "description": "Site-wide configuration, texts, and branding",
+      "type": "object",
+      "properties": {
+        "site_name": { "type": "string" },
+        "page_title": { "type": "string" },
+        "page_subtitle": { "type": "string" },
+        "hero_badge": { "type": "string" },
+        "logo_url": { "type": "string" },
+        "favicon_url": { "type": "string" },
+        "footer_text": { "type": "string" },
+        "copyright_text": { "type": "string" },
+        "contact_email": { "type": "string" },
+        "contact_phone": { "type": "string" },
+        "github_org_url": { "type": "string" },
+        "meta_description": { "type": "string" },
+        "meta_keywords": { "type": "string" },
+        "canonical_url": { "type": "string" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["site_name", "page_title"]
+    }
+  },
+  "firestore": {
+    "/developers/{developerId}": {
+      "schema": "developers",
+      "description": "Developers profiles collection"
+    },
+    "/site_settings/{settingsId}": {
+      "schema": "site_settings",
+      "description": "Site global configuration collection"
+    }
+  }
+}
