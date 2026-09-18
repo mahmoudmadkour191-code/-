@@ -32,7 +32,7 @@ const developers: Developer[] = [
     quote:
       'أؤمن أن البرمجة ليست مجرد كتابة كود، بل بناء تجارب تصنع فرقًا حقيقيًا وتمكّن الأجيال القادمة.',
     image_url:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+      '/uploads/youssef.jpg',
     github_url: 'https://github.com',
     linkedin_url: 'https://linkedin.com',
     facebook_url: '',
