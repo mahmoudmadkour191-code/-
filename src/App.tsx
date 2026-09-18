@@ -51,7 +51,7 @@ const developers: Developer[] = [
     bio: 'مطور واجهات مستخدم وتطبيقات تفاعلية، يركز على معايير الأداء والسرعة وسهولة الاستخدام لبناء تجربة تليق بطلاب وأولياء أمور منصة حِصّتي.',
     quote:
       'البساطة والسرعة هما جوهر كل منتج تقني ناجح يُلهم مستخدميه ويجعل المهام المعقدة سهلة ومباشرة.',
-    image_url: '/uploads/mahmoud-ali.jpg',
+    image_url: 'https://raw.githubusercontent.com/mahmoudmadkour191-code/-/hastey-deploy/public/uploads/mahmoud-ali.jpg',
     github_url: '',
     linkedin_url: '',
     facebook_url: '',
