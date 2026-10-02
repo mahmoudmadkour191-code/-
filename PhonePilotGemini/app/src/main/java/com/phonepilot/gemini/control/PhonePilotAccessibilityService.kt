@@ -102,6 +102,28 @@ class PhonePilotAccessibilityService : AccessibilityService() {
 
     fun click(x: Float, y: Float): Boolean = gesture(Path().apply { moveTo(x, y) }, 70)
 
+    fun doubleClick(x: Float, y: Float): Boolean {
+        if (!click(x, y)) return false
+        Thread.sleep(90)
+        return click(x, y)
+    }
+
+    fun scroll(x: Float, y: Float, direction: String, magnitude: Int): Boolean {
+        val distance = magnitude.coerceIn(80, 999).toFloat()
+        var endX = x
+        var endY = y
+        when (direction.lowercase()) {
+            "up" -> endY -= distance
+            "down" -> endY += distance
+            "left" -> endX -= distance
+            "right" -> endX += distance
+            else -> return false
+        }
+        endX = endX.coerceIn(0f, screenWidth.toFloat())
+        endY = endY.coerceIn(0f, screenHeight.toFloat())
+        return drag(x, y, endX, endY, 550)
+    }
+
     fun longPress(x: Float, y: Float, seconds: Long): Boolean =
         gesture(Path().apply { moveTo(x, y) }, (seconds.coerceIn(1, 5) * 1000))
 
