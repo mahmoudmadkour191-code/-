@@ -26,7 +26,7 @@ class AgentController(context: Context, private val onStatus: (String) -> Unit, 
                 ?: error("فعّل خدمة الوصول Accessibility أولاً.")
 
             onStatus("جاري بدء Gemini Computer Use…")
-            val client = GeminiComputerUseClient(key, model)
+            val client = GeminiComputerUseClient(appContext, key, model)
             val initial = capture(access)
             var interaction = client.start(goal, initial, access.uiSummary())
 
