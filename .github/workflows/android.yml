@@ -30,9 +30,10 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses >/dev/null || true
 
-      - name: Install Android SDK packages
+      - name: Install Android 17 preview SDK
         run: |
-          sdkmanager "platforms;android-37" "build-tools;36.0.0" "platform-tools"
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager --channel=1 "platforms;android-37" "build-tools;36.0.0" "platform-tools"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
