@@ -1,11 +1,12 @@
 plugins {
     id("com.android.application")
+    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.phonepilot.gemini"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.phonepilot.gemini"
