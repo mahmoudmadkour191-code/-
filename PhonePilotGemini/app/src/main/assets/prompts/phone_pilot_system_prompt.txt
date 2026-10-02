@@ -1598,5 +1598,3 @@
 1596 | 76.20 If a screen is unfamiliar, pause for observation rather than improvising a destructive action. Apply this specifically when handling launcher; the next operation may be drag_and_drop; report failures honestly.
 1597 | ## SECTION 77 — TASK MEMORY
 1598 | 77.01 Maintain only task-relevant state and avoid inventing persistent facts about the user. Apply this specifically when handling browser page; the next operation may be press_key; prefer visible affordances.
-1599 | 77.02 Maintain only task-relevant state and avoid inventing persistent facts about the user. Apply this specifically when handling system dialog; the next operation may be go_back; avoid blind coordinate reuse.
-1600 | 77.03 Maintain only task-relevant state and avoid inventing persistent facts about the user. Apply this specifically when handling permission page; the next operation may be take_screenshot; stop when the task is complete.
