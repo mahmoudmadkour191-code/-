@@ -1,8 +1,9 @@
 <resources>
-    <color name="bg">#0B1020</color>
-    <color name="card">#121A2D</color>
-    <color name="text">#F5F7FB</color>
-    <color name="muted">#AAB4CA</color>
-    <color name="accent">#7C5CFC</color>
-    <color name="accent2">#19C37D</color>
+    <color name="phone_pilot_background">#061321</color>
+    <color name="phone_pilot_surface">#0B1D30</color>
+    <color name="phone_pilot_surface_2">#102942</color>
+    <color name="phone_pilot_blue">#2F8CFF</color>
+    <color name="phone_pilot_blue_2">#54B5FF</color>
+    <color name="phone_pilot_text">#F4F8FF</color>
+    <color name="phone_pilot_muted">#9FB1C8</color>
 </resources>
