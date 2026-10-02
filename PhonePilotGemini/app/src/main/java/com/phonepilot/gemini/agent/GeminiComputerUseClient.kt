@@ -3,6 +3,7 @@ package com.phonepilot.gemini.agent
 import com.google.genai.Client
 import com.google.genai.gaos.models.interactions.ComputerUse
 import com.google.genai.gaos.models.interactions.Content
+import com.google.genai.gaos.models.interactions.FunctionResultSubcontent
 import com.google.genai.gaos.models.interactions.CreateModelInteraction
 import com.google.genai.gaos.models.interactions.EnvironmentEnum
 import com.google.genai.gaos.models.interactions.FunctionCallStep
@@ -82,7 +83,7 @@ class GeminiComputerUseClient(
         resultText: String,
         screenshot: ByteArray?
     ): FunctionResultStep {
-        val content = mutableListOf<Content>()
+        val content = mutableListOf<FunctionResultSubcontent>()
         content += TextContent.builder().text(resultText).build()
         screenshot?.let {
             content += ImageContent.builder()
