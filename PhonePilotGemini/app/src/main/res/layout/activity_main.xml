@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHONE PILOT"
+            android:textColor="@color/text"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gemini Agent • Android UI Control"
+            android:textColor="@color/muted"
+            android:textSize="14sp"
+            android:layout_marginBottom="18dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gemini API Key"
+                android:textColor="@color/text"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/apiKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="AIza..."
+                android:textColor="@color/text"
+                android:hintTextColor="@color/muted"/>
+
+            <TextView
+                android:id="@+id/accessStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accessibility: OFF"
+                android:textColor="@color/muted"
+                android:layout_marginTop="8dp"/>
+
+            <Button
+                android:id="@+id/openAccessibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable Accessibility"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            android:padding="16dp"
+            android:background="@color/card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What should the agent do?"
+                android:textColor="@color/text"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/command"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="3"
+                android:gravity="top"
+                android:hint="مثال: افتح تيليجرام وابحث عن أحمد وابعت له: ازيك؟"
+                android:textColor="@color/text"
+                android:hintTextColor="@color/muted"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/runAgent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Run Agent"/>
+
+                <Button
+                    android:id="@+id/stopAgent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Stop"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agent log"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"/>
+
+        <TextView
+            android:id="@+id/log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="240dp"
+            android:padding="14dp"
+            android:background="@color/card"
+            android:textColor="@color/text"
+            android:textSize="13sp"
+            android:textIsSelectable="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Security note: the API key is stored only in this app's private preferences. For a public release, proxy Gemini requests through your own backend instead of shipping a user/API secret in the APK."
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+</ScrollView>
