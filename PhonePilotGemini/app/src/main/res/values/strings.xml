@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Phone Pilot Gemini</string>
+    <string name="accessibility_description">Phone Pilot Gemini needs accessibility access to read the visible UI and perform actions you request.</string>
+</resources>
