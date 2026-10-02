@@ -16,13 +16,23 @@ class SecretStore(context: Context) {
     private fun key(): SecretKey {
         val ks = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
         (ks.getKey(alias, null) as? SecretKey)?.let { return it }
-        val kg = KeyGenerator.getInstance("AES", "AndroidKeyStore")
-        kg.init(256)
-        return kg.generateKey().also { generated ->
-            check((ks.getKey(alias, null) as? SecretKey) != null || generated != null)
-        }
-    }
 
+        val generator = KeyGenerator.getInstance(
+            KeyProperties.KEY_ALGORITHM_AES,
+            "AndroidKeyStore"
+        )
+        generator.init(
+            KeyGenParameterSpec.Builder(
+                alias,
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+            )
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setKeySize(256)
+                .build()
+        )
+        return generator.generateKey()
+    }
     fun save(value: String) {
         if (value.isBlank()) { prefs.edit().remove("gemini_key").apply(); return }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
