@@ -75,7 +75,7 @@ class AgentController(context: Context, private val onStatus: (String) -> Unit, 
                     val shot = capture(access)
                     var resultJson = "{\"success\":" + result.first
                     if (acknowledged) resultJson += ",\"safety_acknowledgement\":true"
-                    resultJson += ",\"detail\":\" + result.second.replace("\\", "\\\\").replace("\"", "\\\"") + "\"}"
+                    resultJson += ",\"detail\":\"" + result.second.replace("\\", "\\\\").replace("\"", "\\\"") + "\"}"
                     responses += client.functionResult(name, call.id().orElse(""), resultJson, shot)
                 }
 
