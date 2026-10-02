@@ -1,5 +1,6 @@
-node_modules/
-.DS_Store
-.env
-.env.*
-.vercel
+.gradle/
+.idea/
+/build/
+*/build/
+local.properties
+*.iml
