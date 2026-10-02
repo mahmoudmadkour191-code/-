@@ -4,7 +4,6 @@ import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
 import android.graphics.Bitmap
 import android.graphics.Path
-import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -67,6 +66,15 @@ class PhonePilotAccessibilityService : AccessibilityService() {
         }
         return sb.toString().take(18000)
     }
+
+    fun launcherApps(): String =
+        packageManager.queryIntentActivities(
+            android.content.Intent(android.content.Intent.ACTION_MAIN)
+                .addCategory(android.content.Intent.CATEGORY_LAUNCHER),
+            android.content.pm.PackageManager.MATCH_ALL
+        ).joinToString("\n") {
+            it.loadLabel(packageManager).toString() + " | " + it.activityInfo.packageName
+        }
 
     fun openApp(appName: String): Boolean {
         val apps = packageManager.queryIntentActivities(
@@ -155,7 +163,7 @@ class PhonePilotAccessibilityService : AccessibilityService() {
             callback(null); return
         }
         val executor = Executor { command -> Handler(Looper.getMainLooper()).post(command) }
-        takeScreenshot(Display.DEFAULT_DISPLAY, executor, object : TakeScreenshotCallback() {
+        takeScreenshot(Display.DEFAULT_DISPLAY, executor, object : TakeScreenshotCallback {
             override fun onSuccess(result: ScreenshotResult) {
                 val bitmap = Bitmap.wrapHardwareBuffer(result.hardwareBuffer, result.colorSpace)
                 val bytes = bitmap?.copy(Bitmap.Config.ARGB_8888, false)?.let {
