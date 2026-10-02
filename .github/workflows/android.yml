@@ -39,6 +39,9 @@ jobs:
         with:
           gradle-version: "9.6.0"
 
+      - name: Build source marker
+        run: echo "Phone Pilot 2.0 latest\n"
+
       - name: Show source revision
         run: git rev-parse HEAD
 
