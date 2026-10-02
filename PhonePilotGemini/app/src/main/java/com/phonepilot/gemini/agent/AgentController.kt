@@ -104,7 +104,7 @@ class AgentController(context: Context, private val onStatus: (String) -> Unit, 
                 }
                 "click" -> access.click(actualX(args["x"]), actualY(args["y"])) to "نقر"
                 "type" -> access.setText(args["text"]?.toString().orEmpty()) to "كتابة النص"
-                "long_press" -> access.longPress(actualX(args["x"]), actualY(args["y"]), args.longValue("seconds",2)) to "ضغط مطول"
+                "long_press" -> access.longPress(actualX(args["x"]), actualY(args["y"]), args["seconds"].longValue(2)) to "ضغط مطول"
                 "drag_and_drop" -> access.drag(
                     actualX(args["start_x"]), actualY(args["start_y"]),
                     actualX(args["end_x"]), actualY(args["end_y"]), 700
@@ -113,7 +113,7 @@ class AgentController(context: Context, private val onStatus: (String) -> Unit, 
                 "press_key" -> access.pressKey(args["key"]?.toString().orEmpty(), shizuku) to "ضغط زر"
                 "take_screenshot" -> true to "التقاط الشاشة"
                 "wait" -> {
-                    Thread.sleep((args.longValue("seconds",1) * 1000).coerceIn(100,5000))
+                    Thread.sleep((args["seconds"].longValue(1) * 1000).coerceIn(100,5000))
                     true to "انتظار"
                 }
                 "list_apps" -> true to access.launcherApps()
