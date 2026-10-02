@@ -40,7 +40,7 @@ jobs:
           gradle-version: "9.6.0"
 
       - name: Build source marker
-        run: echo "Phone Pilot 2.0 final compile check"
+        run: echo "Phone Pilot 2.0 final Gemini SDK compile check"
 
       - name: Show source revision
         run: git rev-parse HEAD
