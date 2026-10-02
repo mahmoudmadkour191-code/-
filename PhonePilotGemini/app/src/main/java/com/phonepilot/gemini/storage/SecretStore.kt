@@ -2,6 +2,8 @@ package com.phonepilot.gemini.storage
 
 import android.content.Context
 import android.util.Base64
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import java.nio.ByteBuffer
 import java.security.KeyStore
 import javax.crypto.Cipher
